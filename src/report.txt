@@ -1,0 +1,114 @@
+Kết quả mới nhất (2019/12/05): 09 11 16 27 35 40 51
+
+
+T/1
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+40 số chưa ra: 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28 30 31 32 33 34 35 37 38 39 40 43 44 45
+Trúng 6 số: 09 11 16 27 35 40
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+29 lần trúng toàn bộ
+7 lần xổ gần nhất không trúng toàn bộ
+
+Khoảng cách giữa các lần trúng toàn bộ: (lần xổ)
+2, 9, 12, 5, 9, 13, 4, 20, 3, 3, 71, 5, 15, 2, 24, 5, 1, 7, 9, 14, 5, 8, 4, 11, 2, 7, 50, 1
+
+
+T/2
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+34 số chưa ra: 01 02 03 04 05 06 07 11 12 13 14 16 17 18 19 20 22 23 24 25 26 27 28 30 31 33 34 35 37 38 39 40 43 45
+Trúng 5 số: 11 16 27 35 40
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+13 lần trúng toàn bộ
+10 lần xổ gần nhất không trúng toàn bộ
+
+Khoảng cách giữa các lần trúng toàn bộ: (lần xổ)
+9, 12, 15, 13, 33, 71, 55, 1, 17, 20, 13, 11
+
+
+T/3
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+29 số chưa ra: 02 03 04 05 06 07 11 12 13 16 17 19 20 22 23 24 25 27 30 31 33 34 35 37 38 39 40 43 45
+Trúng 5 số: 11 16 27 35 40
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+5 lần trúng toàn bộ
+33 lần xổ gần nhất không trúng toàn bộ
+
+Khoảng cách giữa các lần trúng toàn bộ: (lần xổ)
+15, 13, 33, 71
+
+
+T/4
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+25 số chưa ra: 02 03 05 06 11 12 13 16 17 20 22 23 24 25 27 30 31 33 34 35 37 39 40 43 45
+Trúng 5 số: 11 16 27 35 40
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+0 lần trúng toàn bộ
+
+
+T/5
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+23 số chưa ra: 02 03 05 06 11 12 13 16 17 20 22 23 24 25 27 31 33 34 35 37 39 40 43
+Trúng 5 số: 11 16 27 35 40
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+0 lần trúng toàn bộ
+
+
+T/6
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+20 số chưa ra: 02 03 05 06 11 12 13 16 17 20 22 23 25 27 31 33 37 39 40 43
+Trúng 4 số: 11 16 27 40
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+0 lần trúng toàn bộ
+
+
+T/7
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+18 số chưa ra: 02 03 05 06 11 12 13 16 17 20 22 23 25 27 31 37 39 43
+Trúng 3 số: 11 16 27
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+0 lần trúng toàn bộ
+
+
+T/8
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+16 số chưa ra: 02 03 05 11 12 13 16 17 20 23 25 27 31 37 39 43
+Trúng 3 số: 11 16 27
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+0 lần trúng toàn bộ
+
+
+T/9
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+14 số chưa ra: 02 03 05 11 13 17 20 23 25 27 31 37 39 43
+Trúng 2 số: 11 27
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+0 lần trúng toàn bộ
+
+
+T/10
+KHÔNG TÍNH KQUẢ MỚI NHẤT:
+11 số chưa ra: 02 03 05 11 13 20 23 25 31 37 43
+Trúng 1 số: 11
+
+TÍNH LUÔN KQUẢ MỚI NHẤT:
+366 lần gần nhất:
+0 lần trúng toàn bộ
+
