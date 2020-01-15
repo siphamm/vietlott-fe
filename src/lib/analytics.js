@@ -1,46 +1,8 @@
-function haveNotShown({
-  allNumbers = [],
-  data = [],
-  lookBack = 1,
-  includeLatest = false
-} = {}) {
-  const startIdx = includeLatest ? 0 : 1;
-  const _data = [...data];
+const haveNotShown = require('./haveNotShown');
+const numberSetHasWinningResult = require('./numberSetHasWinningResult');
+const resultNumbersInNumberSet = require('./resultNumbersInNumberSet');
 
-  // Sort by drawingDate descending
-  _data.sort((a, b) => {
-    if (a.drawingDate > b.drawingDate) {
-      return -1;
-    } else if (a.drawingDate < b.drawingDate) {
-      return 1;
-    }
-
-    return 0;
-  });
-
-  // Slice the latest <lookBack> drawing results
-  const drawings = _data.slice(startIdx, startIdx + lookBack);
-  const showed = new Set(
-    drawings
-      .reduce((acc, curr) => {
-        const currResults = curr.drawingResult.split(' ');
-        return acc.concat(currResults);
-      }, [])
-      .sort()
-  );
-
-  return new Set([...allNumbers].filter(x => !showed.has(x)));
-}
-
-function numberSetHasWinningResult(numberSet, result) {
-  return [...result].every(num => numberSet.has(num));
-}
-
-function resultNumbersInNumberSet(numberSet, result) {
-  return [...result].filter(num => numberSet.has(num));
-}
-
-function stats({allNumbers = [], data = [], n = 0, prefix = 'T'} = {}) {
+function stats({ allNumbers = [], data = [], n = 0, prefix = 'T' } = {}) {
   if (!data.length) {
     return {};
   }
@@ -63,16 +25,17 @@ function stats({allNumbers = [], data = [], n = 0, prefix = 'T'} = {}) {
     latestDrawing: _data[0],
     drawingDateOverall: {},
     numSetOverall: {}, // T/1, T/2, etc.
-    startingNumOverall: {} // 0x 1x 2x etc.
+    startingNumOverall: {}, // 0x 1x 2x etc.
+    pastDrawings: data,
   };
 
-  // const overallStats = _overallStats(_data);
+  const overallStats = _overallStats(_data);
 
   let c = 0;
   while (c < _data.length) {
     const cur = _data[c];
     const dataSubSet = _data.slice(c);
-    const {drawingDate} = cur;
+    const { drawingDate } = cur;
     const drawingResult = cur.drawingResult.split(' ');
     const drawingDateStats = {};
     let i;
@@ -84,14 +47,16 @@ function stats({allNumbers = [], data = [], n = 0, prefix = 'T'} = {}) {
       result.numSetOverall[numSetKey] = result.numSetOverall[numSetKey] || {
         numWinnings: 0,
         numDrawingsSincePreviousWinning: [],
-        curLosingStreak: 0
+        curLosingStreak: 0,
       };
 
+      // Numbers that haven't shown up in the last i drawings, not including latest drawing
+      // e.g. 645/3
       const numSet = haveNotShown({
         allNumbers,
         data: dataSubSet,
         lookBack: i,
-        includeLatest: false
+        includeLatest: false,
       });
 
       const containsAllWinningNumbers = numberSetHasWinningResult(
@@ -107,7 +72,7 @@ function stats({allNumbers = [], data = [], n = 0, prefix = 'T'} = {}) {
       drawingDateStats[numSetKey] = {
         haveNotShown: numSet,
         containsAllWinningNumbers,
-        winningNumbersInThisSet
+        winningNumbersInThisSet,
       };
 
       if (containsAllWinningNumbers) {
@@ -128,10 +93,13 @@ function stats({allNumbers = [], data = [], n = 0, prefix = 'T'} = {}) {
     c += 1;
   }
 
+  result.overallStats = overallStats;
+  console.log(result.overallStats);
   return result;
 }
 
 function _overallStats(data) {
+  let countAllNumbers = 0;
   const res = {
     startingNumOverall: {
       '0x': {},
@@ -139,16 +107,27 @@ function _overallStats(data) {
       '2x': {},
       '3x': {},
       '4x': {},
-      '5x': {}
-    }
+      '5x': {},
+    },
+    frequency: {},
   };
 
   // Stats for all data points
-  data.forEach(drawing => {
-    const {drawingResult} = drawing;
+  data.forEach((drawing) => {
+    const { drawingResult } = drawing;
     const drawingResultArr = drawingResult.split(' ');
 
-    drawingResultArr.forEach(num => {
+    drawingResultArr.forEach((num) => {
+      // Tan suat xuat hien cua tung so
+      if (!res.frequency.hasOwnProperty(num)) {
+        res.frequency[num] = {
+          count: 1,
+        };
+      } else {
+        res.frequency[num].count = res.frequency[num].count + 1;
+      }
+
+      // startingNumGroup. e.g. 0x 1x 2x
       const startingNumGroup = `${num[0]}x`;
       res.startingNumOverall[startingNumGroup].numTotal =
         (res.startingNumOverall[startingNumGroup].numTotal || 0) + 1;
@@ -160,7 +139,14 @@ function _overallStats(data) {
         res.startingNumOverall[startingNumGroup].numOddTotal =
           (res.startingNumOverall[startingNumGroup].numOddTotal || 0) + 1;
       }
+
+      countAllNumbers++;
     });
+  });
+
+  // Update the pct of frequency for each number
+  Object.keys(res.frequency).forEach((num) => {
+    res.frequency[num].pct = res.frequency[num].count / countAllNumbers;
   });
 
   return res;
@@ -170,5 +156,5 @@ module.exports = {
   haveNotShown,
   numberSetHasWinningResult,
   resultNumbersInNumberSet,
-  stats
+  stats,
 };
