@@ -27,6 +27,8 @@ function stats({ allNumbers = [], data = [], n = 0, prefix = 'T' } = {}) {
     numSetOverall: {}, // T/1, T/2, etc.
     startingNumOverall: {}, // 0x 1x 2x etc.
     pastDrawings: data,
+    allNumbers,
+    prefix,
   };
 
   const overallStats = _overallStats(_data);
@@ -87,14 +89,16 @@ function stats({ allNumbers = [], data = [], n = 0, prefix = 'T' } = {}) {
       }
     }
 
-    result.drawingDateOverall[drawingDate] = drawingDateStats;
+    result.drawingDateOverall[drawingDate] = {
+      drawingResult,
+      numSets: drawingDateStats,
+    };
 
     // Increase c
     c += 1;
   }
 
   result.overallStats = overallStats;
-  console.log(result.overallStats);
   return result;
 }
 
