@@ -1,0 +1,12 @@
+.dsDrawingResultContainer {
+  margin-bottom: 15px;
+}
+
+.dsDrawingResultContainer > h4 {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.dsDrawing--num {
+  padding: 5px 5px 5px 0;
+}
