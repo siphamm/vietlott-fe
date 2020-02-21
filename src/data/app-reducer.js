@@ -1,4 +1,9 @@
-import {SET_DRAWING_DATE, SET_DRAWINGS_DATA, SET_CATEGORY} from '../constants';
+import {
+  SET_DRAWING_DATE,
+  SET_DRAWINGS_DATA,
+  SET_CATEGORY,
+  SET_NUMBER_SET_FOR_ANALYSIS
+} from '../constants';
 
 const reducer = (state, action) => {
   const {type, data, analytics} = action;
@@ -8,6 +13,7 @@ const reducer = (state, action) => {
         ...state,
         drawings: data.drawings,
         selectedDrawingDate: data.drawings[0].drawingDate,
+        selectedNumberSet: 'N-1', // @TODO: this is not good
         analytics
       };
     case SET_DRAWING_DATE:
@@ -19,6 +25,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         category: data.category
+      };
+    case SET_NUMBER_SET_FOR_ANALYSIS:
+      return {
+        ...state,
+        selectedNumberSet: data.numberSet
       };
     default:
       return state;

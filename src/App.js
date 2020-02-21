@@ -3,18 +3,28 @@ import {useParams} from 'react-router-dom';
 
 import AppContext from './data/app-context';
 import AppReducer from './data/app-reducer';
-import {SET_DRAWINGS_DATA, TYPE_VIETLOTT645, CATEGORY_DATE} from './constants';
+import {
+  SET_DRAWINGS_DATA,
+  TYPE_VIETLOTT645,
+  CATEGORY_DATE,
+  CATEGORY_NUMBER_SET,
+  CATEGORY_NUMBER_GROUP
+} from './constants';
 
 import SelectedDrawing from './components/SelectedDrawing';
 import Loading from './components/Loading';
 import CategoryPicker from './components/CategoryPicker';
 import DrawingDatePicker from './components/DrawingDatePicker';
+import NumberSetAnalysis from './components/NumberSetAnalysis';
+import NumberSetPicker from './components/NumberSetPicker';
+import NumberGroupAnalysis from './components/NumberGroupAnalysis';
+
 import useLatestData from './hooks/useLatestData';
 
 import './App.css';
 
 const initialState = {
-  category: CATEGORY_DATE
+  category: CATEGORY_NUMBER_GROUP
 };
 
 function App() {
@@ -44,13 +54,20 @@ function App() {
     >
       <div className="App">
         {!drawings && <Loading />}
-        <div className="leftBar">
-          <CategoryPicker />
-          {category === CATEGORY_DATE && drawings && <DrawingDatePicker />}
-        </div>
-        <div className="mainBar">
-          {category === CATEGORY_DATE && drawings && <SelectedDrawing />}
-        </div>
+        {drawings && (
+          <>
+            <div className="leftBar">
+              <CategoryPicker />
+              {category === CATEGORY_DATE && <DrawingDatePicker />}
+              {category === CATEGORY_NUMBER_SET && <NumberSetPicker />}
+            </div>
+            <div className="mainBar">
+              {category === CATEGORY_DATE && <SelectedDrawing />}
+              {category === CATEGORY_NUMBER_SET && <NumberSetAnalysis />}
+              {category === CATEGORY_NUMBER_GROUP && <NumberGroupAnalysis />}
+            </div>
+          </>
+        )}
       </div>
     </AppContext.Provider>
   );

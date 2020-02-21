@@ -17,7 +17,7 @@ export default function AppRouter() {
             <NavLink to="/vietlott645">Vietlott 645</NavLink>
           </li>
           <li>
-            <NavLink to="/vietlott655">Vietlott 655</NavLink>
+            <NavLink to="/vietlott655">Vietlott 655 (6 số)</NavLink>
           </li>
         </ul>
 

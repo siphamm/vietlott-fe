@@ -23,7 +23,7 @@
 
 .leftBar {
   display: flex;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   border-right: 1px solid #ccc;
 }
 

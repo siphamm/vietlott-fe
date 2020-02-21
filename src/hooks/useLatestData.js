@@ -5,7 +5,7 @@ import {
   TYPE_VIETLOTT645,
   TYPE_VIETLOTT655
 } from '../constants';
-import stats, {stats1} from '../lib/analytics';
+import stats from '../lib/analytics';
 
 function typeToAllNumbers(type) {
   if (type === TYPE_VIETLOTT655) {
@@ -15,26 +15,40 @@ function typeToAllNumbers(type) {
   return ALL_NUMBERS_645;
 }
 
-export default function useLatestData(type = TYPE_VIETLOTT645, callback) {
+export default function useLatestData(
+  type = TYPE_VIETLOTT645,
+  callback = null
+) {
   useEffect(() => {
     console.log(`Getting latest data for ${type}`);
     const API_DRAWINGS = `https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/drawings?type=${type}`;
     fetch(API_DRAWINGS)
       .then(res => res.json())
       .then(res => {
-        // const analytics = stats({
-        //   allNumbers: typeToAllNumbers(type),
-        //   data: res.drawings
-        // });
+        let _res = res;
 
-        const analytics = stats1(res.drawings, {
+        if (type === TYPE_VIETLOTT655) {
+          _res.drawings = _res.drawings.map(drawing => {
+            return {
+              ...drawing,
+              drawingResult: drawing.drawingResult
+                .split(' ')
+                .slice(0, 6)
+                .join(' ')
+            };
+          });
+        }
+
+        const analytics = stats(_res.drawings, {
           allPossibleNumbers: typeToAllNumbers(type)
         });
 
-        callback({
-          drawings: res.drawings,
-          analytics
-        });
+        if (callback) {
+          callback({
+            drawings: _res.drawings,
+            analytics
+          });
+        }
       });
   }, [type, callback]);
 }

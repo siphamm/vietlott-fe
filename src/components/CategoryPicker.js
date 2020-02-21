@@ -1,19 +1,33 @@
 import React, {useContext} from 'react';
 import AppContext from '../data/app-context';
-import {SET_CATEGORY, CATEGORY_DATE, CATEGORY_NUMBER_SET} from '../constants';
+import {
+  SET_CATEGORY,
+  CATEGORY_DATE,
+  CATEGORY_NUMBER_SET,
+  CATEGORY_NUMBER_GROUP
+} from '../constants';
+import classnames from 'classnames';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCalendarAlt, faLayerGroup} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendarAlt,
+  faLayerGroup,
+  faListOl
+} from '@fortawesome/free-solid-svg-icons';
 
 import './CategoryPicker.css';
 
 export default function CategoryPicker() {
-  const {dispatch} = useContext(AppContext);
+  const {state, dispatch} = useContext(AppContext);
+  const {category} = state;
 
   return (
     <div className="categoryPicker">
       <div
-        className="category"
+        className={classnames({
+          category: true,
+          active: category === CATEGORY_DATE
+        })}
         onClick={() => {
           dispatch({
             type: SET_CATEGORY,
@@ -26,7 +40,10 @@ export default function CategoryPicker() {
         <FontAwesomeIcon icon={faCalendarAlt} />
       </div>
       <div
-        className="category"
+        className={classnames({
+          category: true,
+          active: category === CATEGORY_NUMBER_SET
+        })}
         onClick={() => {
           dispatch({
             type: SET_CATEGORY,
@@ -37,6 +54,22 @@ export default function CategoryPicker() {
         }}
       >
         <FontAwesomeIcon icon={faLayerGroup} />
+      </div>
+      <div
+        className={classnames({
+          category: true,
+          active: category === CATEGORY_NUMBER_GROUP
+        })}
+        onClick={() => {
+          dispatch({
+            type: SET_CATEGORY,
+            data: {
+              category: CATEGORY_NUMBER_GROUP
+            }
+          });
+        }}
+      >
+        <FontAwesomeIcon icon={faListOl} />
       </div>
     </div>
   );

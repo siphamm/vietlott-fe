@@ -1,7 +1,3 @@
-const haveNotShown = require('./haveNotShown');
-const numberSetHasWinningResult = require('./numberSetHasWinningResult');
-const resultNumbersInNumberSet = require('./resultNumbersInNumberSet');
-const DEFAULT_NUM_SET_PREFIX = 'N-';
 /* 
 
 stats = {
@@ -88,7 +84,7 @@ stats = {
 
 */
 
-export function stats1(
+export default function stats(
   drawings = [],
   {
     type = 'vietlott645',
@@ -205,24 +201,34 @@ export function stats1(
     });
 
     // For each number in this drawing's result
+    let numberGroupsOfCurDrawing = {};
     drawingResult.forEach(resultNumber => {
       const numberGroup = `${resultNumber[0]}x`;
 
+      if (!numberGroupsOfCurDrawing.hasOwnProperty(numberGroup)) {
+        numberGroupsOfCurDrawing[numberGroup] = [];
+      }
+      numberGroupsOfCurDrawing[numberGroup].push(resultNumber);
+    });
+
+    // Add the numberGroups from this drawing to the endResult
+    Object.keys(numberGroupsOfCurDrawing).forEach(numberGroup => {
+      const matches = numberGroupsOfCurDrawing[numberGroup];
       if (!endResult.numberGroupOverall.hasOwnProperty(numberGroup)) {
         endResult.numberGroupOverall[numberGroup] = {
           history: [],
-          numShowings: 0,
-          numAppearances: 0
+          showings: 0
         };
       }
 
-      // Push to history
-      // @TODO: this is not right. Should only push 1 history for one drawing, not every drawing num. Fix this
       endResult.numberGroupOverall[numberGroup].history.push({
-        result: drawingResult,
+        date,
         id,
-        date
+        matches,
+        result: drawingResult
       });
+
+      endResult.numberGroupOverall[numberGroup].showings += matches.length;
     });
 
     // Assign the endResult properties
@@ -251,7 +257,7 @@ function _getNumberSetsForDrawing(
     startIdx = 0,
     excludeLatest = false,
     allPossibleNumbers = [],
-    numberSetsCount = 10,
+    numberSetsCount = 20,
     prefix = 'N-'
   } = {}
 ) {
@@ -307,117 +313,6 @@ function _getNumberSetsForDrawing(
 
 */
 
-function stats({
-  allNumbers = [],
-  data = [],
-  n = 0,
-  prefix = DEFAULT_NUM_SET_PREFIX
-} = {}) {
-  if (!data.length) {
-    return {};
-  }
-
-  const MAX_LOOK_BACK = 10;
-
-  // Make a copy
-  let _data = [...data];
-
-  // Sort latest drawing on top
-  _data.sort((a, b) => {
-    if (a.drawingDate > b.drawingDate) {
-      return -1;
-    } else if (a.drawingDate < b.drawingDate) {
-      return 1;
-    }
-
-    return 0;
-  });
-
-  const result = {
-    n,
-    latestDrawing: _data[0],
-    drawingDateOverall: {},
-    numSetOverall: {}, // T/1, T/2, etc.
-    startingNumOverall: {}, // 0x 1x 2x etc.
-    pastDrawings: data,
-    allNumbers,
-    prefix
-  };
-
-  const overallStats = _overallStats(_data);
-  let c = 0;
-
-  while (c < _data.length) {
-    const cur = _data[c];
-    const dataSubSet = _data.slice(c);
-    const {drawingDate} = cur;
-    const drawingResult = cur.drawingResult.split(' ');
-    const drawingDateStats = {};
-    let i;
-    let hasAWinningNumSet = false;
-
-    // Stats for numSets
-    for (i = 1; i <= Math.min(MAX_LOOK_BACK, dataSubSet.length); i++) {
-      const numSetKey = `${prefix}${i}`;
-
-      result.numSetOverall[numSetKey] = result.numSetOverall[numSetKey] || {
-        numWinnings: 0,
-        numDrawingsSincePreviousWinning: [],
-        curLosingStreak: 0
-      };
-
-      // Numbers that haven't shown up in the last i drawings, not including latest drawing
-      // e.g. 645/3
-      const numSet = haveNotShown({
-        allNumbers,
-        data: dataSubSet,
-        lookBack: i,
-        includeLatest: false
-      });
-
-      const containsAllWinningNumbers = numberSetHasWinningResult(
-        numSet,
-        drawingResult
-      );
-
-      const winningNumbersInThisSet = resultNumbersInNumberSet(
-        numSet,
-        drawingResult
-      );
-
-      drawingDateStats[numSetKey] = {
-        haveNotShown: numSet,
-        containsAllWinningNumbers,
-        winningNumbersInThisSet
-      };
-
-      if (containsAllWinningNumbers) {
-        hasAWinningNumSet = true;
-        result.numSetOverall[numSetKey].numWinnings += 1;
-        result.numSetOverall[numSetKey].numDrawingsSincePreviousWinning.push(
-          result.numSetOverall[numSetKey].curLosingStreak
-        );
-        result.numSetOverall[numSetKey].curLosingStreak = 0;
-      } else {
-        result.numSetOverall[numSetKey].curLosingStreak =
-          (result.numSetOverall[numSetKey].curLosingStreak || 0) + 1;
-      }
-    }
-
-    result.drawingDateOverall[drawingDate] = {
-      hasAWinningNumSet: hasAWinningNumSet,
-      drawingResult,
-      numSets: drawingDateStats
-    };
-
-    // Increase c
-    c += 1;
-  }
-
-  result.overallStats = overallStats;
-  return result;
-}
-
 function _overallStats(data) {
   let countAllNumbers = 0;
   const res = {
@@ -471,5 +366,3 @@ function _overallStats(data) {
 
   return res;
 }
-
-export default stats;
