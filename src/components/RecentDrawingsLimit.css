@@ -1,0 +1,12 @@
+.recentDrawingsLimit {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+
+.recentDrawingsLimit input {
+  eight: 30px;
+  padding: 5px 10px;
+  font-size: 1em;
+  margin-right: 10px;
+}

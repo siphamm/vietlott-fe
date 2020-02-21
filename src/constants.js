@@ -2,6 +2,7 @@ export const SET_DRAWINGS_DATA = 'SET_DRAWINGS_DATA';
 export const SET_DRAWING_DATE = 'SET_DRAWING_DATE';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_NUMBER_SET_FOR_ANALYSIS = 'SET_NUMBER_SET_FOR_ANALYSIS';
+export const SET_RECENT_DRAWINGS_LIMIT = 'SET_RECENT_DRAWINGS_LIMIT';
 export const TYPE_VIETLOTT645 = 'vietlott645';
 export const TYPE_VIETLOTT655 = 'vietlott655';
 export const CATEGORY_DATE = 'CATEGORY_DATE';
@@ -63,7 +64,7 @@ export const ALL_NUMBERS_655 = new Set([
   '52',
   '53',
   '54',
-  '55'
+  '55',
 ]);
 
 export const ALL_NUMBERS_645 = new Set([
@@ -111,5 +112,5 @@ export const ALL_NUMBERS_645 = new Set([
   '42',
   '43',
   '44',
-  '45'
+  '45',
 ]);

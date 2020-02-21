@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../data/app-context';
 import classnames from 'classnames';
 
@@ -6,15 +6,15 @@ import './NumberSetAnalysis.css';
 
 export default function NumberSetAnalysis() {
   const [numMatchesFilter, setNumMatchesFilter] = useState(-1);
-  const {state} = useContext(AppContext);
-  const {analytics, selectedNumberSet} = state;
-  const {numberSetOverall} = analytics;
+  const { state } = useContext(AppContext);
+  const { analytics, selectedNumberSet } = state;
+  const { numberSetOverall } = analytics;
   const numberSetValue = numberSetOverall[selectedNumberSet];
   const numMatchesFilterOptions = Object.keys(numberSetValue.byMatchesCount);
   const history =
     numMatchesFilter === -1
       ? numberSetValue.history
-      : numberSetValue.history.filter(drawing => {
+      : numberSetValue.history.filter((drawing) => {
           return drawing.matches.length === numMatchesFilter;
         });
 
@@ -28,10 +28,9 @@ export default function NumberSetAnalysis() {
         Trúng{' '}
         <select
           value={numMatchesFilter}
-          onChange={evt => {
+          onChange={(evt) => {
             setNumMatchesFilter(parseInt(evt.target.value, 10));
-          }}
-        >
+          }}>
           <option value={-1}>---</option>
           {numMatchesFilterOptions.map((num, idx) => {
             return (
@@ -61,9 +60,8 @@ export default function NumberSetAnalysis() {
                       key={idx}
                       className={classnames({
                         num: true,
-                        isWinningNum: drawing.matches.indexOf(num) !== -1
-                      })}
-                    >
+                        isWinningNum: drawing.matches.indexOf(num) !== -1,
+                      })}>
                       {num}
                     </span>
                   );

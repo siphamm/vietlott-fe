@@ -1,5 +1,5 @@
-import React, {useCallback, useReducer} from 'react';
-import {useParams} from 'react-router-dom';
+import React, { useCallback, useReducer } from 'react';
+import { useParams } from 'react-router-dom';
 
 import AppContext from './data/app-context';
 import AppReducer from './data/app-reducer';
@@ -8,7 +8,7 @@ import {
   TYPE_VIETLOTT645,
   CATEGORY_DATE,
   CATEGORY_NUMBER_SET,
-  CATEGORY_NUMBER_GROUP
+  CATEGORY_NUMBER_GROUP,
 } from './constants';
 
 import SelectedDrawing from './components/SelectedDrawing';
@@ -18,40 +18,40 @@ import DrawingDatePicker from './components/DrawingDatePicker';
 import NumberSetAnalysis from './components/NumberSetAnalysis';
 import NumberSetPicker from './components/NumberSetPicker';
 import NumberGroupAnalysis from './components/NumberGroupAnalysis';
-
+import RecentDrawingsLimit from './components/RecentDrawingsLimit';
 import useLatestData from './hooks/useLatestData';
 
 import './App.css';
 
 const initialState = {
-  category: CATEGORY_NUMBER_GROUP
+  category: CATEGORY_NUMBER_GROUP,
 };
 
 function App() {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  const {category, drawings} = state;
-  const cb = useCallback(data => {
-    const {analytics, drawings} = data;
+  const { category, drawings } = state;
+  const cb = useCallback((data) => {
+    const { analytics, drawings, originalDrawings } = data;
 
     dispatch({
       type: SET_DRAWINGS_DATA,
       data: {
-        drawings
+        originalDrawings,
+        drawings,
+        analytics,
       },
-      analytics
     });
   }, []);
 
-  const {type = TYPE_VIETLOTT645} = useParams();
+  const { type = TYPE_VIETLOTT645 } = useParams();
   useLatestData(type, cb);
 
   return (
     <AppContext.Provider
       value={{
         state,
-        dispatch
-      }}
-    >
+        dispatch,
+      }}>
       <div className="App">
         {!drawings && <Loading />}
         {drawings && (
@@ -62,6 +62,7 @@ function App() {
               {category === CATEGORY_NUMBER_SET && <NumberSetPicker />}
             </div>
             <div className="mainBar">
+              <RecentDrawingsLimit />
               {category === CATEGORY_DATE && <SelectedDrawing />}
               {category === CATEGORY_NUMBER_SET && <NumberSetAnalysis />}
               {category === CATEGORY_NUMBER_GROUP && <NumberGroupAnalysis />}

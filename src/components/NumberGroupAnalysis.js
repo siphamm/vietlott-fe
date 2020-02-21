@@ -1,33 +1,18 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../data/app-context';
 import classnames from 'classnames';
 
 import './NumberGroupAnalysis.css';
 
 export default function NumberGroupAnalysis() {
-  const {state, dispatch} = useContext(AppContext);
-  const [numRecentDrawingsFilter, setNumRecentDrawingsFilter] = useState(null);
+  const { state, dispatch } = useContext(AppContext);
   const {
     drawings,
-    analytics: {numberGroupOverall}
+    analytics: { numberGroupOverall },
   } = state;
-  const filteredDrawings = !numRecentDrawingsFilter
-    ? drawings
-    : drawings.slice(0, numRecentDrawingsFilter);
 
   return (
     <div className="numberGroupAnalysis">
-      <h1>
-        Thống kê{' '}
-        <input
-          type="number"
-          value={filteredDrawings.length}
-          onChange={evt => {
-            setNumRecentDrawingsFilter(parseInt(evt.target.value, 10));
-          }}
-        />{' '}
-        lần quay
-      </h1>
       <table>
         <thead>
           <tr>
@@ -38,7 +23,7 @@ export default function NumberGroupAnalysis() {
         </thead>
         <tbody>
           {Object.keys(numberGroupOverall).map((numberGroup, idx) => {
-            const {history, showings} = numberGroupOverall[numberGroup];
+            const { history, showings } = numberGroupOverall[numberGroup];
             return (
               <tr key={idx}>
                 <td>{numberGroup}</td>
