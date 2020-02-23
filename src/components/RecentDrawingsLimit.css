@@ -2,11 +2,24 @@
   border-bottom: 1px solid #ccc;
   margin-bottom: 15px;
   padding-bottom: 15px;
+  display: flex;
 }
 
 .recentDrawingsLimit input {
-  eight: 30px;
+  height: 30px;
   padding: 5px 10px;
   font-size: 1em;
-  margin-right: 10px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-right: none;
+}
+
+.recentDrawingsLimit button {
+  height: 30px;
+  padding: 0 15px;
+  border-left: none;
+  background: #efefef;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1em;
 }

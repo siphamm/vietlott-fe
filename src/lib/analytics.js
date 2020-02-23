@@ -90,7 +90,7 @@ export default function stats(
     type = 'vietlott645',
     prefix = 'N-',
     numLookBackDrawings = null,
-    allPossibleNumbers = [],
+    allPossibleNumbers = []
   } = {}
 ) {
   if (!drawings.length || !allPossibleNumbers) {
@@ -119,11 +119,11 @@ export default function stats(
   }
 
   // Transform the drawings array
-  _drawings = _drawings.map((drawing) => {
+  _drawings = _drawings.map(drawing => {
     return {
       id: drawing.drawingId,
       result: drawing.drawingResult.split(' '),
-      date: drawing.drawingDate,
+      date: drawing.drawingDate
     };
   });
 
@@ -133,19 +133,19 @@ export default function stats(
       type,
       prefix,
       numLookBackDrawings,
-      allPossibleNumbers,
+      allPossibleNumbers
     },
     dateOverall: {},
     numberSetOverall: {},
     numberGroupOverall: {},
-    numberOverall: {},
+    numberOverall: {}
   };
 
   // Do the actual analysis/calculations //
 
   // For each drawing
   _drawings.forEach((drawing, drawingIdx) => {
-    const { date, result: drawingResult, id } = drawing;
+    const {date, result: drawingResult, id} = drawing;
 
     // Only calculate "number sets including latest drawing" for the latest drawing, for
     // other drawings, it doesn't make sense
@@ -153,27 +153,27 @@ export default function stats(
       drawingIdx === 0
         ? _getNumberSetsForDrawing(_drawings, {
             startIdx: drawingIdx,
-            allPossibleNumbers: allPossibleNumbers,
+            allPossibleNumbers: allPossibleNumbers
           })
         : null;
 
     const numberSetsExcludeLatest = _getNumberSetsForDrawing(_drawings, {
       startIdx: drawingIdx,
       excludeLatest: true,
-      allPossibleNumbers: allPossibleNumbers,
+      allPossibleNumbers: allPossibleNumbers
     });
 
     // Go through the number sets to calculate the stats for number sets
-    Object.keys(numberSetsExcludeLatest).forEach((numberSetKey) => {
+    Object.keys(numberSetsExcludeLatest).forEach(numberSetKey => {
       if (!endResult.numberSetOverall.hasOwnProperty(numberSetKey)) {
         endResult.numberSetOverall[numberSetKey] = {
           byMatchesCount: {},
-          history: [],
+          history: []
         };
       }
 
       const numberSet = numberSetsExcludeLatest[numberSetKey];
-      const { matches, data } = numberSet;
+      const {matches, data} = numberSet;
       const matchesCount = matches ? matches.length : 0;
 
       // History
@@ -182,7 +182,7 @@ export default function stats(
         id,
         result: drawingResult,
         numberSet: data,
-        matches,
+        matches
       });
 
       // Matches
@@ -196,28 +196,50 @@ export default function stats(
         date,
         id,
         result: drawingResult,
-        matches,
+        matches
       });
     });
 
     // For each number in this drawing's result
     let numberGroupsOfCurDrawing = {};
-    drawingResult.forEach((resultNumber) => {
+    drawingResult.forEach(resultNumber => {
       const numberGroup = `${resultNumber[0]}x`;
+      const numberType = parseInt(resultNumber, 10) % 2 === 0 ? 'even' : 'odd';
+      const endDigitNumberGroup = `x${resultNumber[resultNumber.length - 1]}`;
 
+      // Number groups
       if (!numberGroupsOfCurDrawing.hasOwnProperty(numberGroup)) {
         numberGroupsOfCurDrawing[numberGroup] = [];
       }
       numberGroupsOfCurDrawing[numberGroup].push(resultNumber);
+
+      // Number types. e.g. odd, even
+      if (!numberGroupsOfCurDrawing.hasOwnProperty(numberType)) {
+        numberGroupsOfCurDrawing[numberType] = [];
+      }
+      numberGroupsOfCurDrawing[numberType].push(resultNumber);
+
+      // Ending digit type
+      if (!numberGroupsOfCurDrawing.hasOwnProperty(endDigitNumberGroup)) {
+        numberGroupsOfCurDrawing[endDigitNumberGroup] = [];
+      }
+      numberGroupsOfCurDrawing[endDigitNumberGroup].push(resultNumber);
+
+      // The number itself
+      if (!numberGroupsOfCurDrawing.hasOwnProperty(resultNumber)) {
+        numberGroupsOfCurDrawing[resultNumber] = [];
+      }
+
+      numberGroupsOfCurDrawing[resultNumber].push(resultNumber);
     });
 
     // Add the numberGroups from this drawing to the endResult
-    Object.keys(numberGroupsOfCurDrawing).forEach((numberGroup) => {
+    Object.keys(numberGroupsOfCurDrawing).forEach(numberGroup => {
       const matches = numberGroupsOfCurDrawing[numberGroup];
       if (!endResult.numberGroupOverall.hasOwnProperty(numberGroup)) {
         endResult.numberGroupOverall[numberGroup] = {
           history: [],
-          showings: 0,
+          showings: 0
         };
       }
 
@@ -225,7 +247,7 @@ export default function stats(
         date,
         id,
         matches,
-        result: drawingResult,
+        result: drawingResult
       });
 
       endResult.numberGroupOverall[numberGroup].showings += matches.length;
@@ -236,8 +258,8 @@ export default function stats(
       drawingResult,
       numberSets: {
         numberSetsIncludeLatest,
-        numberSetsExcludeLatest,
-      },
+        numberSetsExcludeLatest
+      }
     };
   });
 
@@ -251,7 +273,7 @@ function _getNumberSetsForDrawing(
     excludeLatest = false,
     allPossibleNumbers = [],
     numberSetsCount = 20,
-    prefix = 'N-',
+    prefix = 'N-'
   } = {}
 ) {
   if (!drawings.length) {
@@ -261,7 +283,7 @@ function _getNumberSetsForDrawing(
   const res = {};
   const accummulatedDrawings = [];
   const numbersShownUp = new Set();
-  const { result: originalDrawingResult } = drawings[startIdx];
+  const {result: originalDrawingResult} = drawings[startIdx];
   const start = excludeLatest ? startIdx + 1 : startIdx;
 
   // Calculate all numbers that have shown up in the last X drawings, starting from <startIdx>
@@ -270,28 +292,28 @@ function _getNumberSetsForDrawing(
     const curDrawing = drawings[start + x];
 
     if (curDrawing) {
-      const { date, result: drawingResult } = curDrawing;
+      const {date, result: drawingResult} = curDrawing;
 
       // Push this drawing to running list of the last X drawings
       accummulatedDrawings.push(curDrawing);
 
       // Add all the numbers in this drawing to running list of all numbers in last X drawings
-      drawingResult.forEach((resultNum) => {
+      drawingResult.forEach(resultNum => {
         numbersShownUp.add(resultNum);
       });
 
       const numbersNotShownUp = new Set(
-        [...allPossibleNumbers].filter((x) => !numbersShownUp.has(x))
+        [...allPossibleNumbers].filter(x => !numbersShownUp.has(x))
       );
 
-      const matches = originalDrawingResult.filter((num) =>
+      const matches = originalDrawingResult.filter(num =>
         numbersNotShownUp.has(num)
       );
 
       res[numberSetKey] = {
         data: [...numbersNotShownUp],
         matches,
-        isWinningNumberSet: matches.length === drawingResult.length,
+        isWinningNumberSet: matches.length === drawingResult.length
       };
     }
   }

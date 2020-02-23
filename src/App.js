@@ -1,5 +1,5 @@
-import React, { useCallback, useReducer } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useCallback, useReducer} from 'react';
+import {useParams} from 'react-router-dom';
 
 import AppContext from './data/app-context';
 import AppReducer from './data/app-reducer';
@@ -9,6 +9,7 @@ import {
   CATEGORY_DATE,
   CATEGORY_NUMBER_SET,
   CATEGORY_NUMBER_GROUP,
+  CATEGORY_NUMBER_SET_GENERATOR
 } from './constants';
 
 import SelectedDrawing from './components/SelectedDrawing';
@@ -19,39 +20,42 @@ import NumberSetAnalysis from './components/NumberSetAnalysis';
 import NumberSetPicker from './components/NumberSetPicker';
 import NumberGroupAnalysis from './components/NumberGroupAnalysis';
 import RecentDrawingsLimit from './components/RecentDrawingsLimit';
+import NumberSetGenerator from './components/NumberSetGenerator';
 import useLatestData from './hooks/useLatestData';
 
 import './App.css';
 
 const initialState = {
-  category: CATEGORY_NUMBER_GROUP,
+  category: CATEGORY_DATE,
+  selectedNumberSet: 'N-1' // @TODO: this is not good. hardcoded
 };
 
 function App() {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  const { category, drawings } = state;
-  const cb = useCallback((data) => {
-    const { analytics, drawings, originalDrawings } = data;
+  const {category, drawings} = state;
+  const cb = useCallback(data => {
+    const {analytics, drawings, originalDrawings} = data;
 
     dispatch({
       type: SET_DRAWINGS_DATA,
       data: {
         originalDrawings,
         drawings,
-        analytics,
-      },
+        analytics
+      }
     });
   }, []);
 
-  const { type = TYPE_VIETLOTT645 } = useParams();
+  const {type = TYPE_VIETLOTT645} = useParams();
   useLatestData(type, cb);
 
   return (
     <AppContext.Provider
       value={{
         state,
-        dispatch,
-      }}>
+        dispatch
+      }}
+    >
       <div className="App">
         {!drawings && <Loading />}
         {drawings && (
@@ -62,10 +66,15 @@ function App() {
               {category === CATEGORY_NUMBER_SET && <NumberSetPicker />}
             </div>
             <div className="mainBar">
-              <RecentDrawingsLimit />
+              {category !== CATEGORY_NUMBER_SET_GENERATOR && (
+                <RecentDrawingsLimit />
+              )}
               {category === CATEGORY_DATE && <SelectedDrawing />}
               {category === CATEGORY_NUMBER_SET && <NumberSetAnalysis />}
               {category === CATEGORY_NUMBER_GROUP && <NumberGroupAnalysis />}
+              {category === CATEGORY_NUMBER_SET_GENERATOR && (
+                <NumberSetGenerator />
+              )}
             </div>
           </>
         )}

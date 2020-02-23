@@ -1,0 +1,23 @@
+.numberGroups {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.numberGroups small {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.numberGroups td, .numberGroups th {
+  text-align: left;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.numberGroupName {
+  font-weight: bold;
+}
+
+.breakRow td {
+  padding: 15px;
+}

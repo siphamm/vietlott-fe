@@ -1,0 +1,29 @@
+.numberSetGenerator {}
+
+.numberSetGenerator input:not([type=checkbox]) {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 1em;
+  margin: 10px 0 15px 0;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.numberSetGenerator button {
+  height: 30px;
+  padding: 0 15px;
+  margin-top: 15px;
+  background: #efefef;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.generatedNumberSets {
+  margin-top: 15px;
+}
+
+.generatedNumberSet {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}

@@ -29,4 +29,5 @@
 
 .mainBar {
   padding: 25px;
+  flex: 1 1 auto;
 }

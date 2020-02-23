@@ -1,26 +1,26 @@
-import React, { useContext, useRef } from 'react';
+import React, {useContext, useRef} from 'react';
 import AppContext from '../data/app-context';
-import { SET_RECENT_DRAWINGS_LIMIT, SET_DRAWINGS_DATA } from '../constants';
+import {SET_RECENT_DRAWINGS_LIMIT, SET_DRAWINGS_DATA} from '../constants';
 import stats from '../lib/analytics';
 import './RecentDrawingsLimit.css';
 
 export default function RecentDrawingsLimit() {
-  const { state, dispatch } = useContext(AppContext);
+  const {state, dispatch} = useContext(AppContext);
   const inputEl = useRef(null);
 
-  const { analytics, originalDrawings, recentDrawingsLimit } = state;
+  const {analytics, originalDrawings, recentDrawingsLimit} = state;
   return (
     <form
       className="recentDrawingsLimit"
-      onSubmit={(evt) => {
+      onSubmit={evt => {
         evt.preventDefault();
-        const newLimit = inputEl.current.value;
+        let newLimit = parseInt((inputEl.current.value || '').trim(), 10);
 
         dispatch({
           type: SET_RECENT_DRAWINGS_LIMIT,
           data: {
-            recentDrawingsLimit: parseInt(newLimit, 10),
-          },
+            recentDrawingsLimit: parseInt(newLimit, 10)
+          }
         });
 
         const newDrawings = newLimit
@@ -28,7 +28,7 @@ export default function RecentDrawingsLimit() {
           : originalDrawings;
 
         const newAnalytics = stats(newDrawings, {
-          allPossibleNumbers: analytics.metadata.allPossibleNumbers,
+          allPossibleNumbers: analytics.metadata.allPossibleNumbers
         });
 
         dispatch({
@@ -36,12 +36,14 @@ export default function RecentDrawingsLimit() {
           data: {
             originalDrawings,
             drawings: newDrawings,
-            analytics: newAnalytics,
-          },
+            analytics: newAnalytics
+          }
         });
-      }}>
+      }}
+    >
       <input
         type="number"
+        placeholder="Giới hạn số lần quay"
         min="2"
         defaultValue={recentDrawingsLimit || ''}
         ref={inputEl}
