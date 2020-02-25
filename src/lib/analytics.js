@@ -84,6 +84,8 @@ stats = {
 
 */
 
+import markov from './markov';
+
 export default function stats(
   drawings = [],
   {
@@ -138,7 +140,8 @@ export default function stats(
     dateOverall: {},
     numberSetOverall: {},
     numberGroupOverall: {},
-    numberOverall: {}
+    numberOverall: {},
+    markov: markov(_drawings)
   };
 
   // Do the actual analysis/calculations //

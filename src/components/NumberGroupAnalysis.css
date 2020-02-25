@@ -21,3 +21,38 @@
 .breakRow td {
   padding: 15px;
 }
+
+.numberGroupDetailsContainer {
+  /* display: flex; */
+  /* align-items: flex-end; */
+  border-collapse: collapse;
+}
+
+.numberGroupDetailsContainer td {
+  border: 0;
+  padding: 5px 15px;
+  vertical-align: top;
+}
+
+.numberGroup-drawingDate {
+  flex: 0 1 auto;
+  margin-right: 15px;
+  font-size: 0.8em;
+  color: #444;
+}
+
+.numberGroup-drawingMatches {
+  flex: 1 1 auto;
+  font-weight: bold;
+}
+
+.numberGroup-drawingMatches.even {
+  color: #56a2f3;
+}
+.numberGroup-drawingMatches.odd {
+  color: #ff6262;
+}
+
+.numberGroup-seeDetails {
+  margin-bottom: 15px;
+}

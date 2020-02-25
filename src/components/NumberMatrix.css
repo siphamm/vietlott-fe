@@ -1,0 +1,19 @@
+.numberMatrix {
+  overflow: scroll;
+}
+.numberMatrixTable {
+  font-size: 0.8em;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.numberMatrixTable td {
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 3px;
+}
+
+.numberMatrixTable tr:hover > td {
+  background: #eee;
+  font-weight: 600;
+}

@@ -1,12 +1,10 @@
 .categoryPicker {
   flex: 0 0 30px;
-  background: #efefef;
 }
 
 .category {
   font-size: 1.3em;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
   cursor: pointer;
 }
 

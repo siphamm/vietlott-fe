@@ -15,6 +15,7 @@ function typeToAllNumbers(type) {
   return ALL_NUMBERS_645;
 }
 
+// @TODO: make this function also depend on recentDrawingsLimit
 export default function useLatestData(
   type = TYPE_VIETLOTT645,
   callback = null

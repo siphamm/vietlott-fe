@@ -19,12 +19,14 @@
 
 .App {
   display: flex;
+  background: #FAF8FC;
 }
 
 .leftBar {
   display: flex;
   flex: 0 0 auto;
-  border-right: 1px solid #ccc;
+  background: #fff;
+  padding: 10px;
 }
 
 .mainBar {

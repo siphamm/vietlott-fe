@@ -8,6 +8,7 @@ import {
 
 const reducer = (state, action) => {
   const {type, data} = action;
+
   switch (type) {
     case SET_DRAWINGS_DATA:
       return {

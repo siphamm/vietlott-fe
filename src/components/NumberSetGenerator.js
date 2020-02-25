@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import shuffle from '../lib/shuffleArray';
+
 import './NumberSetGenerator.css';
 
 export default function NumberSetGenerator() {

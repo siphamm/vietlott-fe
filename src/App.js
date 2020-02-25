@@ -9,7 +9,8 @@ import {
   CATEGORY_DATE,
   CATEGORY_NUMBER_SET,
   CATEGORY_NUMBER_GROUP,
-  CATEGORY_NUMBER_SET_GENERATOR
+  CATEGORY_NUMBER_SET_GENERATOR,
+  CATEGORY_NUMBER_MATRIX
 } from './constants';
 
 import SelectedDrawing from './components/SelectedDrawing';
@@ -21,6 +22,8 @@ import NumberSetPicker from './components/NumberSetPicker';
 import NumberGroupAnalysis from './components/NumberGroupAnalysis';
 import RecentDrawingsLimit from './components/RecentDrawingsLimit';
 import NumberSetGenerator from './components/NumberSetGenerator';
+import NumberMatrix from './components/NumberMatrix';
+
 import useLatestData from './hooks/useLatestData';
 
 import './App.css';
@@ -75,6 +78,7 @@ function App() {
               {category === CATEGORY_NUMBER_SET_GENERATOR && (
                 <NumberSetGenerator />
               )}
+              {category === CATEGORY_NUMBER_MATRIX && <NumberMatrix />}
             </div>
           </>
         )}

@@ -5,7 +5,8 @@ import {
   CATEGORY_DATE,
   CATEGORY_NUMBER_SET,
   CATEGORY_NUMBER_GROUP,
-  CATEGORY_NUMBER_SET_GENERATOR
+  CATEGORY_NUMBER_SET_GENERATOR,
+  CATEGORY_NUMBER_MATRIX
 } from '../constants';
 import classnames from 'classnames';
 
@@ -14,7 +15,8 @@ import {
   faCalendarAlt,
   faLayerGroup,
   faListOl,
-  faMagic
+  faMagic,
+  faTable
 } from '@fortawesome/free-solid-svg-icons';
 
 import './CategoryPicker.css';
@@ -88,6 +90,22 @@ export default function CategoryPicker() {
         }}
       >
         <FontAwesomeIcon icon={faMagic} />
+      </div>
+      <div
+        className={classnames({
+          category: true,
+          active: category === CATEGORY_NUMBER_MATRIX
+        })}
+        onClick={() => {
+          dispatch({
+            type: SET_CATEGORY,
+            data: {
+              category: CATEGORY_NUMBER_MATRIX
+            }
+          });
+        }}
+      >
+        <FontAwesomeIcon icon={faTable} />
       </div>
     </div>
   );
