@@ -35,7 +35,7 @@ const initialState = {
 
 function App() {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  const {category, drawings} = state;
+  const {category, drawings, recentDrawingsLimit} = state;
   const cb = useCallback(data => {
     const {analytics, drawings, originalDrawings} = data;
 

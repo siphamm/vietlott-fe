@@ -16,6 +16,7 @@ export default function DrawingDatePicker() {
           <div
             className={classnames({
               drawingDate: true,
+              mono: true,
               active: selectedDrawingDate === drawing.drawingDate
             })}
             key={`drawing${idx}`}

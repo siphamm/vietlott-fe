@@ -1,8 +1,13 @@
+.drawingDatesPicker {
+  height: 100%;
+  overflow: auto;
+}
+
 .drawingDate {
   cursor: pointer;
   color: #333;
   padding: 8px 20px;
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-weight: 500;
   letter-spacing: 0.5px;
   border-right: 4px solid transparent;

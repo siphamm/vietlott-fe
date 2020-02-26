@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  border-bottom: 1px solid #ccc;
+  flex: 0 0 auto;
 }
 
 .nav > li a {
@@ -11,6 +11,10 @@
   padding: 10px 20px;
   text-decoration: none;
   color: #333;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: bold;
+  letter-spacing: -0.5px;
 }
 
 .nav > li a.active {
@@ -19,7 +23,9 @@
 
 .App {
   display: flex;
-  background: #FAF8FC;
+  /* background: #FAF8FC; */
+  flex: 1 1 auto;
+  overflow: auto;
 }
 
 .leftBar {
@@ -32,4 +38,7 @@
 .mainBar {
   padding: 25px;
   flex: 1 1 auto;
+  overflow: auto;
+  background: #f3f3f3;
+  border-top-left-radius: 20px;
 }

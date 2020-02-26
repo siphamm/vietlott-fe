@@ -17,6 +17,7 @@ export default function NumberSetPicker() {
           <div
             className={classnames({
               numberSetOption: true,
+              mono: true,
               active: selectedNumberSet === numberSetKey
             })}
             key={`numberSet${idx}`}

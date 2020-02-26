@@ -30,7 +30,7 @@
 
 .numberGroupDetailsContainer td {
   border: 0;
-  padding: 5px 15px;
+  padding: 3px 5px;
   vertical-align: top;
 }
 
@@ -44,15 +44,34 @@
 .numberGroup-drawingMatches {
   flex: 1 1 auto;
   font-weight: bold;
+  display: flex;
 }
 
-.numberGroup-drawingMatches.even {
+.even {
   color: #56a2f3;
 }
-.numberGroup-drawingMatches.odd {
+.odd {
   color: #ff6262;
 }
 
 .numberGroup-seeDetails {
   margin-bottom: 15px;
+}
+
+.matchesOddEvenContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.matchesOddEvenContainer > span {
+  padding: 3px 5px;
+  text-align: center;
+}
+
+.matchesOddEvenContainer:not(:first-of-type) > span {
+  border-left: 1px solid #999;
+}
+
+.matchesOddEvenContainer > span:not(:last-of-type) {
+  border-bottom: 1px solid #999;
 }

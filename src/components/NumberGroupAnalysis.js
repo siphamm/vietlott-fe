@@ -154,9 +154,10 @@ export default function NumberGroupAnalysis() {
                 </tr>
                 {showDetails && !ALL_NUMBERS_655.has(numberGroup) && (
                   <tr className="numberGroupDetails">
-                    <td colSpan="8">
+                    <td>&nbsp;</td>
+                    <td colSpan="7">
                       <table className="numberGroupDetailsContainer">
-                        <thead>
+                        {/* <thead>
                           <tr>
                             {shouldShowOddEvenBreakdown && (
                               <>
@@ -164,40 +165,32 @@ export default function NumberGroupAnalysis() {
                                 <td>Lẻ</td>
                               </>
                             )}
-                            {!shouldShowOddEvenBreakdown && (
-                              <>
-                                <td>Ngày</td>
-                                <td>Kết quả</td>
-                              </>
-                            )}
                           </tr>
-                        </thead>
+                        </thead> */}
                         <tbody>
                           {shouldShowOddEvenBreakdown && (
                             <tr>
-                              <td className="numberGroup-drawingMatches mono even">
+                              <td className="numberGroup-drawingMatches mono">
                                 {Object.keys(numberGroupOddEvenCount.even)
                                   .sort()
                                   .map(num => {
                                     return (
-                                      <div className="matchesOddEvenContainer">
+                                      <div className="matchesOddEvenContainer even">
                                         <span>{num}</span>
                                         <span>
-                                          ({numberGroupOddEvenCount.even[num]})
+                                          {numberGroupOddEvenCount.even[num]}
                                         </span>
                                       </div>
                                     );
                                   })}
-                              </td>
-                              <td className="numberGroup-drawingMatches mono odd">
                                 {Object.keys(numberGroupOddEvenCount.odd)
                                   .sort()
                                   .map(num => {
                                     return (
-                                      <div className="matchesOddEvenContainer">
+                                      <div className="matchesOddEvenContainer odd">
                                         <span>{num}</span>
                                         <span>
-                                          ({numberGroupOddEvenCount.odd[num]})
+                                          {numberGroupOddEvenCount.odd[num]}
                                         </span>
                                       </div>
                                     );
