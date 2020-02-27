@@ -3,19 +3,22 @@ import {
   SET_DRAWINGS_DATA,
   SET_CATEGORY,
   SET_NUMBER_SET_FOR_ANALYSIS,
-  SET_RECENT_DRAWINGS_LIMIT
+  SET_RECENT_DRAWINGS_LIMIT,
+  SET_ANALYTICS
 } from '../constants';
 
 const reducer = (state, action) => {
   const {type, data} = action;
-
   switch (type) {
     case SET_DRAWINGS_DATA:
       return {
         ...state,
         originalDrawings: data.originalDrawings || state.originalDrawings,
-        drawings: data.drawings,
-        selectedDrawingDate: data.drawings[0].drawingDate,
+        drawings: data.drawings
+      };
+    case SET_ANALYTICS:
+      return {
+        ...state,
         analytics: data.analytics
       };
     case SET_DRAWING_DATE:

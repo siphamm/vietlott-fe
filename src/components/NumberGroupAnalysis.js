@@ -7,7 +7,7 @@ import './NumberGroupAnalysis.css';
 
 export default function NumberGroupAnalysis() {
   const {state} = useContext(AppContext);
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(true);
   const {
     drawings,
     analytics: {numberGroupOverall}

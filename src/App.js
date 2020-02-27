@@ -1,16 +1,18 @@
-import React, {useCallback, useReducer} from 'react';
+import React, {useCallback, useReducer, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 
 import AppContext from './data/app-context';
 import AppReducer from './data/app-reducer';
 import {
   SET_DRAWINGS_DATA,
+  SET_DRAWING_DATE,
   TYPE_VIETLOTT645,
   CATEGORY_DATE,
   CATEGORY_NUMBER_SET,
   CATEGORY_NUMBER_GROUP,
   CATEGORY_NUMBER_SET_GENERATOR,
-  CATEGORY_NUMBER_MATRIX
+  CATEGORY_NUMBER_MATRIX,
+  SET_ANALYTICS
 } from './constants';
 
 import SelectedDrawing from './components/SelectedDrawing';
@@ -25,32 +27,62 @@ import NumberSetGenerator from './components/NumberSetGenerator';
 import NumberMatrix from './components/NumberMatrix';
 
 import useLatestData from './hooks/useLatestData';
+import useAnalytics from './hooks/useAnalytics';
 
 import './App.css';
 
 const initialState = {
   category: CATEGORY_DATE,
-  selectedNumberSet: 'N-1' // @TODO: this is not good. hardcoded
+  selectedNumberSet: 'N-1', // @TODO: this is not good. hardcoded
+  recentDrawingsLimit: 50
 };
 
 function App() {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  const {category, drawings, recentDrawingsLimit} = state;
-  const cb = useCallback(data => {
-    const {analytics, drawings, originalDrawings} = data;
+  const {
+    category,
+    drawings,
+    analytics: stateAnalytics,
+    recentDrawingsLimit
+  } = state;
+  const {type = TYPE_VIETLOTT645} = useParams();
+  const latestDrawingsData = useLatestData(type);
+  const analytics = useAnalytics({
+    drawings: latestDrawingsData,
+    limit: recentDrawingsLimit,
+    type
+  });
 
+  useEffect(() => {
     dispatch({
       type: SET_DRAWINGS_DATA,
       data: {
-        originalDrawings,
-        drawings,
+        originalDrawings: latestDrawingsData,
+        drawings:
+          Array.isArray(latestDrawingsData) && recentDrawingsLimit
+            ? latestDrawingsData.slice(0, recentDrawingsLimit)
+            : latestDrawingsData
+      }
+    });
+
+    if (latestDrawingsData && latestDrawingsData.length) {
+      dispatch({
+        type: SET_DRAWING_DATE,
+        data: {
+          drawingDate: latestDrawingsData[0].drawingDate
+        }
+      });
+    }
+  }, [latestDrawingsData]);
+
+  useEffect(() => {
+    dispatch({
+      type: SET_ANALYTICS,
+      data: {
         analytics
       }
     });
-  }, []);
-
-  const {type = TYPE_VIETLOTT645} = useParams();
-  useLatestData(type, cb);
+  }, [analytics]);
 
   return (
     <AppContext.Provider
@@ -60,8 +92,8 @@ function App() {
       }}
     >
       <div className="App">
-        {!drawings && <Loading />}
-        {drawings && (
+        {!(drawings && stateAnalytics) && <Loading />}
+        {drawings && stateAnalytics && (
           <>
             <div className="leftBar">
               <CategoryPicker />

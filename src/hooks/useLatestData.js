@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {
   ALL_NUMBERS_645,
   ALL_NUMBERS_655,
@@ -15,11 +15,9 @@ function typeToAllNumbers(type) {
   return ALL_NUMBERS_645;
 }
 
-// @TODO: make this function also depend on recentDrawingsLimit
-export default function useLatestData(
-  type = TYPE_VIETLOTT645,
-  callback = null
-) {
+export default function useLatestData(type = TYPE_VIETLOTT645) {
+  const [drawings, setDrawings] = useState(null);
+
   useEffect(() => {
     console.log(`Getting latest data for ${type}`);
     const API_DRAWINGS = `https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/drawings?type=${type}`;
@@ -41,17 +39,13 @@ export default function useLatestData(
           });
         }
 
-        const analytics = stats(_res.drawings, {
-          allPossibleNumbers: typeToAllNumbers(type)
-        });
+        setDrawings(_res.drawings);
 
-        if (callback) {
-          callback({
-            originalDrawings: _res.drawings,
-            drawings: _res.drawings,
-            analytics
-          });
-        }
+        // const analytics = stats(_res.drawings, {
+        //   allPossibleNumbers: typeToAllNumbers(type)
+        // });
       });
-  }, [type, callback]);
+  }, [type]);
+
+  return drawings;
 }

@@ -9,12 +9,15 @@ import './SelectedDrawing.css';
 
 export default function SelectedDrawing() {
   const {
-    state: {selectedDrawingDate, drawings, analytics},
-    dispatch
+    state: {selectedDrawingDate, analytics}
   } = useContext(AppContext);
-
   const [includeLatest, setIncludeLatest] = useState(false);
   const selectedDrawing = analytics.dateOverall[selectedDrawingDate];
+
+  if (!selectedDrawing) {
+    return <div>Loading...</div>;
+  }
+
   const {
     numberSets: {numberSetsIncludeLatest, numberSetsExcludeLatest},
     drawingResult: selectedDrawingResult
