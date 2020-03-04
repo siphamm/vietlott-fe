@@ -86,7 +86,19 @@ export default function NumberGroupAnalysis() {
               '2x',
               '3x',
               '4x',
-              '5x'
+              '5x',
+              'odd',
+              'even',
+              'x0',
+              'x1',
+              'x2',
+              'x3',
+              'x4',
+              'x5',
+              'x6',
+              'x7',
+              'x8',
+              'x9'
             ]).has(numberGroup);
 
             const numberGroupOddEvenCount = history.reduce(
@@ -152,6 +164,8 @@ export default function NumberGroupAnalysis() {
                     );
                   })}
                 </tr>
+
+                {/* Number group details row */}
                 {showDetails && !ALL_NUMBERS_655.has(numberGroup) && (
                   <tr className="numberGroupDetails">
                     <td>&nbsp;</td>

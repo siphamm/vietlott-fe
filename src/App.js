@@ -33,7 +33,7 @@ import './App.css';
 
 const initialState = {
   category: CATEGORY_DATE,
-  selectedNumberSet: 'N-1', // @TODO: this is not good. hardcoded
+  selectedNumberSet: 'N-1',
   recentDrawingsLimit: 50
 };
 
@@ -54,6 +54,14 @@ function App() {
   });
 
   useEffect(() => {
+    // Set analytics to null
+    dispatch({
+      type: SET_ANALYTICS,
+      data: {
+        analytics: null
+      }
+    });
+
     dispatch({
       type: SET_DRAWINGS_DATA,
       data: {

@@ -6,12 +6,14 @@ export const SET_RECENT_DRAWINGS_LIMIT = 'SET_RECENT_DRAWINGS_LIMIT';
 export const SET_ANALYTICS = 'SET_ANALYTICS';
 export const TYPE_VIETLOTT645 = 'vietlott645';
 export const TYPE_VIETLOTT655 = 'vietlott655';
+export const TYPE_VIETLOTT655_7 = 'vietlott655_7';
 export const CATEGORY_DATE = 'CATEGORY_DATE';
 export const CATEGORY_NUMBER_SET = 'CATEGORY_NUMBER_SET';
 export const CATEGORY_NUMBER_GROUP = 'CATEGORY_NUMBER_GROUP';
 export const CATEGORY_NUMBER_SET_GENERATOR = 'CATEGORY_NUMBER_SET_GENERATOR';
 export const CATEGORY_NUMBER_MATRIX = 'CATEGORY_NUMBER_MATRIX';
-
+export const LATEST_DATA_URL =
+  'https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/drawings';
 export const ALL_NUMBERS_655 = new Set([
   '01',
   '02',

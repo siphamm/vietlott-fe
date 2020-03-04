@@ -24,12 +24,12 @@ export default function useAnalytics(config) {
       setAnalytics(null);
     } else {
       let _d = [...drawings];
-      _d = _d || [];
-      _d = limit ? _d.slice(0, limit) : _d;
 
       // return analysis;
       const res = stats(_d, {
-        allPossibleNumbers: typeToAllNumbers(type)
+        allPossibleNumbers: typeToAllNumbers(type),
+        type,
+        numLookBackDrawings: limit
       });
 
       setAnalytics(res);
