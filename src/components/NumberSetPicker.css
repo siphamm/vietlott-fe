@@ -1,3 +1,10 @@
+.numberSetPicker {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .numberSetOption {
   cursor: pointer;
   color: #333;
@@ -11,4 +18,19 @@
 .numberSetOption.active {
   color: #8a00f3;
   border-color: #8a00f3;
+}
+
+@media screen and (max-width: 480px) {
+  .numberSetPicker {
+    margin: 0;
+    flex-direction: row;
+  }
+
+  .numberSetOption {
+    border: none;
+    padding: 5px 15px;
+    flex-shrink: 0;
+    border-bottom: 4px solid transparent;
+    font-size: 1em;
+  }
 }

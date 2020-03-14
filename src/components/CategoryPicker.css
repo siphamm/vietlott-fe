@@ -1,5 +1,7 @@
 .categoryPicker {
   flex: 0 0 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .category {
@@ -10,4 +12,13 @@
 
 .category.active {
   color: #8a00f3;
+}
+
+@media screen and (max-width: 480px) {
+  .categoryPicker {
+    flex-direction: row;
+    border: 1px solid #c1c1c1;
+    border-left: none;
+    border-right: none;
+  }
 }

@@ -1,6 +1,8 @@
 .drawingDatesPicker {
   height: 100%;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .drawingDate {
@@ -16,4 +18,17 @@
 .drawingDate.active {
   color: #8a00f3;
   border-color: #8a00f3;
+}
+
+@media screen and (max-width: 480px) {
+  .drawingDatesPicker {
+    margin: 0;
+    flex-direction: row;
+  }
+
+  .drawingDate {
+    border: none;
+    border-bottom: 4px solid transparent;
+    font-size: 1em;
+  }
 }
