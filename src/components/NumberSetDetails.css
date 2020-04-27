@@ -1,0 +1,36 @@
+.numberSetContainer {
+  display: flex;
+  padding: 10px;
+}
+
+.numberSetTitle {
+  flex: 0 0 100px;
+  border-right: 3px solid #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-content: stretch;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.timeElapsedSinceLastMatchingInDays,
+.drawingsElapsedSinceLastMatching {
+  font-size: 0.8em;
+  color: #777;
+}
+
+.numberSetDrawingDate {
+  font-size: 0.9em;
+}
+
+.numberSetNums {
+  flex: 1 1 auto;
+  margin-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  align-content: flex-end;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}

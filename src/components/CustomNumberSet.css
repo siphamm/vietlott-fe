@@ -1,0 +1,45 @@
+.statsContainer {
+  display: flex;
+  flex-direction: column;
+}
+.customNumberSetStats {
+  background: #fff;
+  padding: 15px;
+  margin: 10px 10px 10px 0;
+  flex: 0 0 22%;
+}
+
+.hasNotAppeared {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hasNotAppeared > span {
+  margin: 5px;
+}
+
+.customNumberSetStatsMatrix {
+  border-collapse: collapse;
+  margin: 15px 15px 15px 0;
+}
+
+.customNumberSetStatsMatrix tr > td:first-of-type {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.customNumberSetStatsMatrix td, .customNumberSetStatsMatrix th {
+  text-align: center;
+  border: 1px solid #c7c7c7;
+  padding: 3px 5px;
+  font-size: 0.9em;
+}
+
+.customNumberSetStatsByGroupContainer {
+  margin-top: 15px;
+}
+
+.customNumberSetStatsGroup {
+  border-top: 1px solid #c7c7c7;
+  padding: 15px 0;
+}

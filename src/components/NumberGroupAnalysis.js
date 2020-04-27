@@ -171,16 +171,6 @@ export default function NumberGroupAnalysis() {
                     <td>&nbsp;</td>
                     <td colSpan="7">
                       <table className="numberGroupDetailsContainer">
-                        {/* <thead>
-                          <tr>
-                            {shouldShowOddEvenBreakdown && (
-                              <>
-                                <td>Chẵn</td>
-                                <td>Lẻ</td>
-                              </>
-                            )}
-                          </tr>
-                        </thead> */}
                         <tbody>
                           {shouldShowOddEvenBreakdown && (
                             <tr>

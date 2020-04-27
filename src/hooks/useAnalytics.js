@@ -3,12 +3,13 @@ import {
   ALL_NUMBERS_645,
   ALL_NUMBERS_655,
   TYPE_VIETLOTT645,
-  TYPE_VIETLOTT655
+  TYPE_VIETLOTT655,
+  TYPE_VIETLOTT655_7
 } from '../constants';
 import stats from '../lib/analytics';
 
 function typeToAllNumbers(type) {
-  if (type === TYPE_VIETLOTT655) {
+  if (type === TYPE_VIETLOTT655 || type === TYPE_VIETLOTT655_7) {
     return ALL_NUMBERS_655;
   }
 

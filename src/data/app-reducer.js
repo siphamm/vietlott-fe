@@ -4,7 +4,8 @@ import {
   SET_CATEGORY,
   SET_NUMBER_SET_FOR_ANALYSIS,
   SET_RECENT_DRAWINGS_LIMIT,
-  SET_ANALYTICS
+  SET_ANALYTICS,
+  SET_ORIGINAL_ANALYTICS
 } from '../constants';
 
 const reducer = (state, action) => {
@@ -20,6 +21,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         analytics: data.analytics
+      };
+    case SET_ORIGINAL_ANALYTICS:
+      return {
+        ...state,
+        originalAnalytics: data.originalAnalytics
       };
     case SET_DRAWING_DATE:
       return {

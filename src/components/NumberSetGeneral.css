@@ -1,0 +1,28 @@
+.numberSetNumberFrequencyContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.numberSetNumberFrequency {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.numberSetNumberFrequency > span {
+  padding: 5px;
+  color: #666;
+}
+
+.numberSetNumberFrequency > span:first-child {
+  font-weight: bold;
+  color: #000;
+}
+
+.numberSetNumberFrequency:not(:first-of-type) > span {
+  border-left: 1px solid #ccc;
+}
+
+.numberSetNumberFrequency > span:not(:last-of-type) {
+  border-bottom: 1px solid #ccc;
+}

@@ -6,7 +6,8 @@ import {
   CATEGORY_NUMBER_SET,
   CATEGORY_NUMBER_GROUP,
   CATEGORY_NUMBER_SET_GENERATOR,
-  CATEGORY_NUMBER_MATRIX
+  CATEGORY_NUMBER_MATRIX,
+  CATEGORY_CUSTOM_NUMBER_SET
 } from '../constants';
 import classnames from 'classnames';
 
@@ -16,7 +17,8 @@ import {
   faLayerGroup,
   faListOl,
   faMagic,
-  faTable
+  faTable,
+  faHistory
 } from '@fortawesome/free-solid-svg-icons';
 
 import './CategoryPicker.css';
@@ -24,89 +26,56 @@ import './CategoryPicker.css';
 export default function CategoryPicker() {
   const {state, dispatch} = useContext(AppContext);
   const {category} = state;
+  const categories = [
+    {
+      name: CATEGORY_DATE,
+      icon: faCalendarAlt
+    },
+    {
+      name: CATEGORY_NUMBER_SET,
+      icon: faLayerGroup
+    },
+    {
+      name: CATEGORY_CUSTOM_NUMBER_SET,
+      icon: faHistory
+    },
+    {
+      name: CATEGORY_NUMBER_GROUP,
+      icon: faListOl
+    },
+    {
+      name: CATEGORY_NUMBER_SET_GENERATOR,
+      icon: faMagic
+    },
+    {
+      name: CATEGORY_NUMBER_MATRIX,
+      icon: faTable
+    }
+  ];
 
   return (
     <div className="categoryPicker">
-      <div
-        className={classnames({
-          category: true,
-          active: category === CATEGORY_DATE
-        })}
-        onClick={() => {
-          dispatch({
-            type: SET_CATEGORY,
-            data: {
-              category: CATEGORY_DATE
-            }
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faCalendarAlt} />
-      </div>
-      <div
-        className={classnames({
-          category: true,
-          active: category === CATEGORY_NUMBER_SET
-        })}
-        onClick={() => {
-          dispatch({
-            type: SET_CATEGORY,
-            data: {
-              category: CATEGORY_NUMBER_SET
-            }
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faLayerGroup} />
-      </div>
-      <div
-        className={classnames({
-          category: true,
-          active: category === CATEGORY_NUMBER_GROUP
-        })}
-        onClick={() => {
-          dispatch({
-            type: SET_CATEGORY,
-            data: {
-              category: CATEGORY_NUMBER_GROUP
-            }
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faListOl} />
-      </div>
-      <div
-        className={classnames({
-          category: true,
-          active: category === CATEGORY_NUMBER_SET_GENERATOR
-        })}
-        onClick={() => {
-          dispatch({
-            type: SET_CATEGORY,
-            data: {
-              category: CATEGORY_NUMBER_SET_GENERATOR
-            }
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faMagic} />
-      </div>
-      <div
-        className={classnames({
-          category: true,
-          active: category === CATEGORY_NUMBER_MATRIX
-        })}
-        onClick={() => {
-          dispatch({
-            type: SET_CATEGORY,
-            data: {
-              category: CATEGORY_NUMBER_MATRIX
-            }
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faTable} />
-      </div>
+      {categories.map(cat => {
+        const {name, icon} = cat;
+        return (
+          <div
+            className={classnames({
+              category: true,
+              active: name === category
+            })}
+            onClick={() => {
+              dispatch({
+                type: SET_CATEGORY,
+                data: {
+                  category: name
+                }
+              });
+            }}
+          >
+            <FontAwesomeIcon icon={icon} />
+          </div>
+        );
+      })}
     </div>
   );
 }

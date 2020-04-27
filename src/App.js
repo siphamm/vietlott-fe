@@ -1,4 +1,4 @@
-import React, {useCallback, useReducer, useEffect} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 
 import AppContext from './data/app-context';
@@ -12,7 +12,9 @@ import {
   CATEGORY_NUMBER_GROUP,
   CATEGORY_NUMBER_SET_GENERATOR,
   CATEGORY_NUMBER_MATRIX,
-  SET_ANALYTICS
+  CATEGORY_CUSTOM_NUMBER_SET,
+  SET_ANALYTICS,
+  SET_ORIGINAL_ANALYTICS
 } from './constants';
 
 import SelectedDrawing from './components/SelectedDrawing';
@@ -25,6 +27,7 @@ import NumberGroupAnalysis from './components/NumberGroupAnalysis';
 import RecentDrawingsLimit from './components/RecentDrawingsLimit';
 import NumberSetGenerator from './components/NumberSetGenerator';
 import NumberMatrix from './components/NumberMatrix';
+import CustomNumberSet from './components/CustomNumberSet';
 
 import useLatestData from './hooks/useLatestData';
 import useAnalytics from './hooks/useAnalytics';
@@ -50,6 +53,10 @@ function App() {
   const analytics = useAnalytics({
     drawings: latestDrawingsData,
     limit: recentDrawingsLimit,
+    type
+  });
+  const originalAnalytics = useAnalytics({
+    drawings: latestDrawingsData,
     type
   });
 
@@ -81,7 +88,7 @@ function App() {
         }
       });
     }
-  }, [latestDrawingsData]);
+  }, [latestDrawingsData, recentDrawingsLimit]);
 
   useEffect(() => {
     dispatch({
@@ -91,6 +98,15 @@ function App() {
       }
     });
   }, [analytics]);
+
+  useEffect(() => {
+    dispatch({
+      type: SET_ORIGINAL_ANALYTICS,
+      data: {
+        originalAnalytics
+      }
+    });
+  }, [originalAnalytics]);
 
   return (
     <AppContext.Provider
@@ -109,9 +125,10 @@ function App() {
               {category === CATEGORY_NUMBER_SET && <NumberSetPicker />}
             </div>
             <div className="mainBar">
-              {category !== CATEGORY_NUMBER_SET_GENERATOR && (
-                <RecentDrawingsLimit />
-              )}
+              {category !== CATEGORY_NUMBER_SET_GENERATOR &&
+                category !== CATEGORY_CUSTOM_NUMBER_SET && (
+                  <RecentDrawingsLimit />
+                )}
               {category === CATEGORY_DATE && <SelectedDrawing />}
               {category === CATEGORY_NUMBER_SET && <NumberSetAnalysis />}
               {category === CATEGORY_NUMBER_GROUP && <NumberGroupAnalysis />}
@@ -119,6 +136,7 @@ function App() {
                 <NumberSetGenerator />
               )}
               {category === CATEGORY_NUMBER_MATRIX && <NumberMatrix />}
+              {category === CATEGORY_CUSTOM_NUMBER_SET && <CustomNumberSet />}
             </div>
           </>
         )}

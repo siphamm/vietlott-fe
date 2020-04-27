@@ -39,6 +39,5 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
         // });
       });
   }, [type]);
-
   return drawings;
 }
