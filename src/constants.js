@@ -15,7 +15,7 @@ export const CATEGORY_NUMBER_SET_GENERATOR = 'CATEGORY_NUMBER_SET_GENERATOR';
 export const CATEGORY_NUMBER_MATRIX = 'CATEGORY_NUMBER_MATRIX';
 export const CATEGORY_CUSTOM_NUMBER_SET = 'CATEGORY_CUSTOM_NUMBER_SET';
 export const LATEST_DATA_URL =
-  'https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/drawings';
+  'https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/vietlott-api-dev-get-drawings';
 export const ALL_NUMBERS_655 = new Set([
   '01',
   '02',

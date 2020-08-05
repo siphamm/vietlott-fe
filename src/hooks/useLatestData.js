@@ -2,7 +2,8 @@ import {useEffect, useState} from 'react';
 import {
   TYPE_VIETLOTT645,
   TYPE_VIETLOTT655,
-  LATEST_DATA_URL
+  LATEST_DATA_URL,
+  SET_NUMBER_SET_FOR_ANALYSIS
 } from '../constants';
 import lotteryTypeToQueryParam from '../lib/lotteryTypeToQueryParam';
 
@@ -18,6 +19,27 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
       .then(res => res.json())
       .then(res => {
         let _res = res;
+
+        // De-dup data
+        const drawingDates = {};
+        _res.drawings = _res.drawings
+          .filter(drawing => {
+            if (drawingDates.hasOwnProperty(drawing.drawingDate)) {
+              return false;
+            }
+
+            drawingDates[drawing.drawingDate] = true;
+            return true;
+          })
+          .map((drawing, idx, originalArr) => {
+            return {
+              ...drawing,
+              drawingId: originalArr.length - idx
+            };
+          });
+
+        // Make the IDs correct. This is hacky. IDs should come from DB, but for the time being
+        // use this before fixing the scraping logic
 
         // Vietlott 655 (6 so'), remove so cuoi
         if (type === TYPE_VIETLOTT655) {
