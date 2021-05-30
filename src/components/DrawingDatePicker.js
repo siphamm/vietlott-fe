@@ -1,13 +1,13 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../data/app-context';
 import classnames from 'classnames';
 
-import {SET_DRAWING_DATE} from '../constants';
+import { SET_DRAWING_DATE } from '../constants';
 import './DrawingDatePicker.css';
 
 export default function DrawingDatePicker() {
-  const {state, dispatch} = useContext(AppContext);
-  const {drawings, selectedDrawingDate} = state;
+  const { state, dispatch } = useContext(AppContext);
+  const { drawings, selectedDrawingDate } = state;
 
   return (
     <div className="drawingDatesPicker">
@@ -17,16 +17,18 @@ export default function DrawingDatePicker() {
             className={classnames({
               drawingDate: true,
               mono: true,
-              active: selectedDrawingDate === drawing.drawingDate
+              active: selectedDrawingDate === drawing.drawingDate,
             })}
             key={`drawing${idx}`}
             onClick={() => {
               dispatch({
                 type: SET_DRAWING_DATE,
-                data: {drawingDate: drawing.drawingDate}
+                data: {
+                  drawingDate: drawing.drawingDate,
+                  drawingId: drawing.drawingId,
+                },
               });
-            }}
-          >
+            }}>
             {drawing.drawingDate}
           </div>
         );

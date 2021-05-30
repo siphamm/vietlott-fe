@@ -1,25 +1,25 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../data/app-context';
 import classnames from 'classnames';
 
 import './NumberSetGeneral.css';
 
-export default function NumberSetGeneral({history}) {
+export default function NumberSetGeneral({ history }) {
   const [showAppearedWinningNumbers, setShowAppearedWinningNumbers] = useState(
     true
   );
   const matchesCounts = history.reduce((acc, curr, idx) => {
-    const {matches} = curr;
+    const { matches } = curr;
 
-    matches.forEach(num => {
+    matches.forEach((num) => {
       acc[num] = (acc[num] || 0) + 1;
     });
 
     return acc;
   }, {});
-  const {state} = useContext(AppContext);
-  const {analytics, originalDrawings, selectedNumberSet} = state;
-  const {dateOverall} = analytics;
+  const { state } = useContext(AppContext);
+  const { analytics, originalDrawings, selectedNumberSet } = state;
+  const { dateOverall } = analytics;
   const latestDrawingDate = !originalDrawings.length
     ? null
     : originalDrawings[0].drawingDate;
@@ -29,7 +29,7 @@ export default function NumberSetGeneral({history}) {
         selectedNumberSet
       ].data;
   const latestNumberSetExcludingAppearedWinningNumbers = latestNumberSetValue.filter(
-    num => !matchesCounts.hasOwnProperty(num)
+    (num) => !matchesCounts.hasOwnProperty(num)
   );
 
   return (
@@ -62,7 +62,7 @@ export default function NumberSetGeneral({history}) {
         <div className="numberSetNumberFrequencyContainer">
           {Object.keys(matchesCounts)
             .sort()
-            .map(num => {
+            .map((num) => {
               const count = matchesCounts[num];
               return (
                 <div className="numberSetNumberFrequency">

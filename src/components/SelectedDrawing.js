@@ -1,26 +1,71 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../data/app-context';
 
 import classNames from 'classnames';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCheckCircle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import './SelectedDrawing.css';
 
 export default function SelectedDrawing() {
-  const {
-    state: {selectedDrawingDate, analytics}
-  } = useContext(AppContext);
+  const { state } = useContext(AppContext);
+  const { selectedDrawingDate, selectedDrawingId, analytics } = state;
   const [includeLatest, setIncludeLatest] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   const selectedDrawing = analytics.dateOverall[selectedDrawingDate];
+
+  function onDeleteDrawing() {
+    const {
+      metadata: { type: lotteryType },
+    } = analytics;
+    const url =
+      'https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/drawings';
+    if (
+      window.confirm('Are you sure you want to delete this drawing?') &&
+      lotteryType
+    ) {
+      const type =
+        lotteryType === 'vietlott645' ? 'vietlott645' : 'vietlott655';
+      console.log(type, selectedDrawingId);
+      setIsSubmitting(true);
+      setError(null);
+
+      fetch(url, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({
+          type,
+          drawingId: selectedDrawingId,
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setError(null);
+          // window.location.reload();
+        })
+        .catch((err) => {
+          setError(err);
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    }
+  }
 
   if (!selectedDrawing) {
     return <div>Loading...</div>;
   }
 
   const {
-    numberSets: {numberSetsIncludeLatest, numberSetsExcludeLatest},
-    drawingResult: selectedDrawingResult
+    numberSets: { numberSetsIncludeLatest, numberSetsExcludeLatest },
+    drawingResult: selectedDrawingResult,
   } = selectedDrawing;
 
   const selectedDrawingNumSets =
@@ -38,7 +83,8 @@ export default function SelectedDrawing() {
           return <span key={idx}>{num}</span>;
         })}
       </div>
-
+      <button onClick={onDeleteDrawing}>Xóa kết quả này</button>
+      <hr />
       {!!numberSetsIncludeLatest && (
         <div>
           <input
@@ -56,7 +102,7 @@ export default function SelectedDrawing() {
       {selectedDrawingNumSets &&
         Object.keys(selectedDrawingNumSets).map((numSet, idx) => {
           const numSetData = selectedDrawingNumSets[numSet];
-          const {isWinningNumberSet, data, matches} = numSetData;
+          const { isWinningNumberSet, data, matches } = numSetData;
           return (
             <div key={idx} className="numSetContainer">
               <h4 className="numSetTitle">
@@ -78,9 +124,8 @@ export default function SelectedDrawing() {
                       key={idx}
                       className={classNames({
                         num: true,
-                        isWinningNum: matches.indexOf(num) !== -1
-                      })}
-                    >
+                        isWinningNum: matches.indexOf(num) !== -1,
+                      })}>
                       {num}
                     </span>
                   );

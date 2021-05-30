@@ -5,47 +5,48 @@ import {
   SET_NUMBER_SET_FOR_ANALYSIS,
   SET_RECENT_DRAWINGS_LIMIT,
   SET_ANALYTICS,
-  SET_ORIGINAL_ANALYTICS
+  SET_ORIGINAL_ANALYTICS,
 } from '../constants';
 
 const reducer = (state, action) => {
-  const {type, data} = action;
+  const { type, data } = action;
   switch (type) {
     case SET_DRAWINGS_DATA:
       return {
         ...state,
         originalDrawings: data.originalDrawings || state.originalDrawings,
-        drawings: data.drawings
+        drawings: data.drawings,
       };
     case SET_ANALYTICS:
       return {
         ...state,
-        analytics: data.analytics
+        analytics: data.analytics,
       };
     case SET_ORIGINAL_ANALYTICS:
       return {
         ...state,
-        originalAnalytics: data.originalAnalytics
+        originalAnalytics: data.originalAnalytics,
       };
     case SET_DRAWING_DATE:
       return {
         ...state,
-        selectedDrawingDate: data.drawingDate
+        selectedDrawingDate: data.drawingDate,
+        selectedDrawingId: data.drawingId,
       };
     case SET_CATEGORY:
       return {
         ...state,
-        category: data.category
+        category: data.category,
       };
     case SET_NUMBER_SET_FOR_ANALYSIS:
       return {
         ...state,
-        selectedNumberSet: data.numberSet
+        selectedNumberSet: data.numberSet,
       };
     case SET_RECENT_DRAWINGS_LIMIT:
       return {
         ...state,
-        recentDrawingsLimit: data.recentDrawingsLimit
+        recentDrawingsLimit: data.recentDrawingsLimit,
       };
     default:
       return state;

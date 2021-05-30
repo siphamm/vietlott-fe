@@ -1,0 +1,9 @@
+.manualEntry {
+  margin-bottom: 15px;
+  max-width: 500px;
+}
+
+.manualEntry .error {
+  margin-top: 15px;
+  color: red;
+}

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../data/app-context';
 import {
   SET_CATEGORY,
@@ -7,71 +7,76 @@ import {
   CATEGORY_NUMBER_GROUP,
   CATEGORY_NUMBER_SET_GENERATOR,
   CATEGORY_NUMBER_MATRIX,
-  CATEGORY_CUSTOM_NUMBER_SET
+  CATEGORY_CUSTOM_NUMBER_SET,
+  CATEGORY_MANUAL_ENTRY,
 } from '../constants';
 import classnames from 'classnames';
 
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarAlt,
   faLayerGroup,
   faListOl,
   faMagic,
   faTable,
-  faHistory
+  faHistory,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
 import './CategoryPicker.css';
 
 export default function CategoryPicker() {
-  const {state, dispatch} = useContext(AppContext);
-  const {category} = state;
+  const { state, dispatch } = useContext(AppContext);
+  const { category } = state;
   const categories = [
     {
+      name: CATEGORY_MANUAL_ENTRY,
+      icon: faPlus,
+    },
+    {
       name: CATEGORY_DATE,
-      icon: faCalendarAlt
+      icon: faCalendarAlt,
     },
     {
       name: CATEGORY_NUMBER_SET,
-      icon: faLayerGroup
+      icon: faLayerGroup,
     },
     {
       name: CATEGORY_CUSTOM_NUMBER_SET,
-      icon: faHistory
+      icon: faHistory,
     },
     {
       name: CATEGORY_NUMBER_GROUP,
-      icon: faListOl
+      icon: faListOl,
     },
     {
       name: CATEGORY_NUMBER_SET_GENERATOR,
-      icon: faMagic
+      icon: faMagic,
     },
     {
       name: CATEGORY_NUMBER_MATRIX,
-      icon: faTable
-    }
+      icon: faTable,
+    },
   ];
 
   return (
     <div className="categoryPicker">
-      {categories.map(cat => {
-        const {name, icon} = cat;
+      {categories.map((cat) => {
+        const { name, icon } = cat;
         return (
           <div
             className={classnames({
               category: true,
-              active: name === category
+              active: name === category,
             })}
             onClick={() => {
               dispatch({
                 type: SET_CATEGORY,
                 data: {
-                  category: name
-                }
+                  category: name,
+                },
               });
-            }}
-          >
+            }}>
             <FontAwesomeIcon icon={icon} />
           </div>
         );

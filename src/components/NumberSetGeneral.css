@@ -4,12 +4,13 @@
 }
 
 .numberSetNumberFrequency {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   text-align: center;
 }
 
 .numberSetNumberFrequency > span {
+  display: block;
   padding: 5px;
   color: #666;
 }

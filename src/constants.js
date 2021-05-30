@@ -9,6 +9,7 @@ export const TYPE_VIETLOTT645 = 'vietlott645';
 export const TYPE_VIETLOTT655 = 'vietlott655';
 export const TYPE_VIETLOTT655_7 = 'vietlott655_7';
 export const CATEGORY_DATE = 'CATEGORY_DATE';
+export const CATEGORY_MANUAL_ENTRY = 'CATEGORY_MANUAL_ENTRY';
 export const CATEGORY_NUMBER_SET = 'CATEGORY_NUMBER_SET';
 export const CATEGORY_NUMBER_GROUP = 'CATEGORY_NUMBER_GROUP';
 export const CATEGORY_NUMBER_SET_GENERATOR = 'CATEGORY_NUMBER_SET_GENERATOR';
@@ -71,7 +72,7 @@ export const ALL_NUMBERS_655 = new Set([
   '52',
   '53',
   '54',
-  '55'
+  '55',
 ]);
 
 export const ALL_NUMBERS_645 = new Set([
@@ -119,5 +120,5 @@ export const ALL_NUMBERS_645 = new Set([
   '42',
   '43',
   '44',
-  '45'
+  '45',
 ]);

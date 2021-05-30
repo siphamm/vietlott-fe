@@ -1,0 +1,9 @@
+{
+  "drawingId": 518,
+  "createdAt": 1608766198472,
+  "drawingDate": "2020/12/22",
+  "drawingResult": "10 11 16 29 35 38 03"
+}
+
+https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655?id=00515&nocatche=1#00518
+https://us-west-2.console.aws.amazon.com/dynamodb/home?region=us-west-2#tables:selected=vietlott-latest-drawings;tab=items
