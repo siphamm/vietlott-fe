@@ -27,7 +27,6 @@ export default function SelectedDrawing() {
     ) {
       const type =
         lotteryType === 'vietlott645' ? 'vietlott645' : 'vietlott655';
-      console.log(type, selectedDrawingId);
       setIsSubmitting(true);
       setError(null);
 
@@ -46,7 +45,6 @@ export default function SelectedDrawing() {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           setError(null);
           // window.location.reload();
         })

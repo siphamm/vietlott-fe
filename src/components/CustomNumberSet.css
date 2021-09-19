@@ -21,6 +21,7 @@
 .customNumberSetStatsMatrix {
   border-collapse: collapse;
   margin: 15px 15px 15px 0;
+  margin-right: 20px;
 }
 
 .customNumberSetStatsMatrix tr > td:first-of-type {
@@ -28,7 +29,8 @@
   font-size: 1.1em;
 }
 
-.customNumberSetStatsMatrix td, .customNumberSetStatsMatrix th {
+.customNumberSetStatsMatrix td,
+.customNumberSetStatsMatrix th {
   text-align: center;
   border: 1px solid #c7c7c7;
   padding: 3px 5px;
@@ -37,9 +39,20 @@
 
 .customNumberSetStatsByGroupContainer {
   margin-top: 15px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.customNumberSetStatsByGroupContainer.vertical {
+  flex-direction: column;
 }
 
 .customNumberSetStatsGroup {
   border-top: 1px solid #c7c7c7;
-  padding: 15px 0;
+  padding: 15px 15px 15px 0;
+}
+
+.scrollable {
+  width: 100%;
+  overflow: scroll;
 }

@@ -2,11 +2,11 @@ const AWS = require('aws-sdk');
 
 async function asyncGetDrawings(type) {
   const dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'us-west-2'
+    region: 'us-west-2',
   });
   const typeToTable = {
     vietlott645: 'vietlott645-results',
-    vietlott655: 'vietlott655-results'
+    vietlott655: 'vietlott655-results',
   };
 
   const params = {
@@ -15,19 +15,19 @@ async function asyncGetDrawings(type) {
     ExpressionAttributeNames: {
       '#id': 'drawingId',
       '#date': 'drawingDate',
-      '#result': 'drawingResult'
-    }
+      '#result': 'drawingResult',
+    },
   };
 
   return new Promise((resolve, reject) => {
     dynamoDb.scan(params, (err, data) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         reject(err);
         return;
       }
 
-      const {Items: items} = data;
+      const { Items: items } = data;
 
       items.sort((a, b) => {
         if (a.drawingDate > b.drawingDate) {

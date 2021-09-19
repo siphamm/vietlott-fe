@@ -12,17 +12,16 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
 
   useEffect(() => {
     console.log(`Getting latest data for ${type}`);
-    const API_DRAWINGS = `${LATEST_DATA_URL}?type=${lotteryTypeToQueryParam(
-      type
-    )}`;
+    const API_DRAWINGS = `${LATEST_DATA_URL}/${lotteryTypeToQueryParam(type)}`;
     fetch(API_DRAWINGS)
       .then((res) => res.json())
       .then((res) => {
         let _res = res;
+        let drawings = [];
 
         // De-dup data
         const drawingDates = {};
-        _res.drawings = _res.drawings
+        drawings = _res
           .filter((drawing) => {
             if (drawingDates.hasOwnProperty(drawing.drawingDate)) {
               return false;
@@ -44,7 +43,7 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
 
         // Vietlott 655 (6 so'), remove so cuoi
         if (type === TYPE_VIETLOTT655) {
-          _res.drawings = _res.drawings.map((drawing) => {
+          drawings = drawings.map((drawing) => {
             return {
               ...drawing,
               drawingResult: drawing.drawingResult
@@ -55,9 +54,9 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
           });
         }
 
-        setDrawings(_res.drawings);
+        setDrawings(drawings);
 
-        // const analytics = stats(_res.drawings, {
+        // const analytics = stats(drawings, {
         //   allPossibleNumbers: typeToAllNumbers(type)
         // });
       });
