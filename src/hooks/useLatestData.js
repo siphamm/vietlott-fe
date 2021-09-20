@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import {
   TYPE_VIETLOTT645,
   TYPE_VIETLOTT655,
   LATEST_DATA_URL,
-  SET_NUMBER_SET_FOR_ANALYSIS,
+  SET_NUMBER_SET_FOR_ANALYSIS
 } from '../constants';
 import lotteryTypeToQueryParam from '../lib/lotteryTypeToQueryParam';
 
@@ -14,15 +14,15 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
     console.log(`Getting latest data for ${type}`);
     const API_DRAWINGS = `${LATEST_DATA_URL}/${lotteryTypeToQueryParam(type)}`;
     fetch(API_DRAWINGS)
-      .then((res) => res.json())
-      .then((res) => {
+      .then(res => res.json())
+      .then(res => {
         let _res = res;
         let drawings = [];
 
         // De-dup data
         const drawingDates = {};
         drawings = _res
-          .filter((drawing) => {
+          .filter(drawing => {
             if (drawingDates.hasOwnProperty(drawing.drawingDate)) {
               return false;
             }
@@ -31,9 +31,8 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
             return true;
           })
           .map((drawing, idx, originalArr) => {
-            console.log(drawing);
             return {
-              ...drawing,
+              ...drawing
               // drawingId: originalArr.length - idx,
             };
           });
@@ -43,13 +42,13 @@ export default function useLatestData(type = TYPE_VIETLOTT645) {
 
         // Vietlott 655 (6 so'), remove so cuoi
         if (type === TYPE_VIETLOTT655) {
-          drawings = drawings.map((drawing) => {
+          drawings = drawings.map(drawing => {
             return {
               ...drawing,
               drawingResult: drawing.drawingResult
                 .split(' ')
                 .slice(0, 6)
-                .join(' '),
+                .join(' ')
             };
           });
         }

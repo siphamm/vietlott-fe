@@ -1,13 +1,40 @@
 import React, {useContext, useState} from 'react';
 import AppContext from '../data/app-context';
 import classnames from 'classnames';
+import dayjs from 'dayjs';
 
 import './NumberSetDetails.css';
+
+function getNumDrawingsBetween(lotteryType, startDateStr, endDateStr) {
+  const startDate = dayjs(startDateStr);
+  const endDate = dayjs(endDateStr);
+  const dates = [];
+  let curDate = startDate;
+
+  while (curDate.isBefore(endDate) || curDate.isSame(endDate)) {
+    dates.push(curDate.format('YYYY-MM-DD'));
+    curDate = curDate.add(1, 'day');
+  }
+
+  return (
+    dates.filter(date => {
+      const drawingDayOfWeek = {
+        vietlott645: new Set([0, 3, 5]),
+        vietlott655: new Set([2, 4, 6])
+      };
+
+      return drawingDayOfWeek[lotteryType].has(dayjs(date).day());
+    }).length - 1
+  );
+}
 
 export default function NumberSetDetails({history}) {
   const {state} = useContext(AppContext);
   const {analytics, selectedNumberSet, originalDrawings} = state;
-  const {numberSetOverall} = analytics;
+  const {
+    numberSetOverall,
+    metadata: {type}
+  } = analytics;
   const latestDrawing = originalDrawings[0];
   const numberSetValue = numberSetOverall[selectedNumberSet];
 
@@ -33,9 +60,12 @@ export default function NumberSetDetails({history}) {
                 )
               : Math.round((now - drawingDate) / (1000 * 60 * 60 * 24));
 
-            const drawingsElapsedSinceLastMatching = lastResultMatchingId
-              ? lastResultMatchingId - drawing.id
-              : null;
+            const numDrawingsSinceLastMatching = getNumDrawingsBetween(
+              type,
+              drawingDate,
+              lastResultMatchingDate
+            );
+
             lastResultMatchingDate = drawingDate;
             lastResultMatchingId = drawing.id;
 
@@ -48,9 +78,9 @@ export default function NumberSetDetails({history}) {
                     </span>
                   )}
                   {/* <span>Cách đây {timeElapsedSinceNow} ngày</span> */}
-                  {drawingsElapsedSinceLastMatching !== null && (
+                  {!!numDrawingsSinceLastMatching && (
                     <span className="drawingsElapsedSinceLastMatching">
-                      {drawingsElapsedSinceLastMatching} lần
+                      {numDrawingsSinceLastMatching} lần
                     </span>
                   )}
                   <span className="numberSetDrawingDate">{drawing.date}</span>
