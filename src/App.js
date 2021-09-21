@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useReducer, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 
 import AppContext from './data/app-context';
 import AppReducer from './data/app-reducer';
@@ -15,7 +15,7 @@ import {
   CATEGORY_CUSTOM_NUMBER_SET,
   SET_ANALYTICS,
   SET_ORIGINAL_ANALYTICS,
-  CATEGORY_MANUAL_ENTRY,
+  CATEGORY_MANUAL_ENTRY
 } from './constants';
 
 import SelectedDrawing from './components/SelectedDrawing';
@@ -39,7 +39,7 @@ import ManualEntry from './components/ManualResultEntry';
 const initialState = {
   category: CATEGORY_DATE,
   selectedNumberSet: 'N-1',
-  recentDrawingsLimit: 50,
+  recentDrawingsLimit: 50
 };
 
 function App() {
@@ -48,18 +48,18 @@ function App() {
     category,
     drawings,
     analytics: stateAnalytics,
-    recentDrawingsLimit,
+    recentDrawingsLimit
   } = state;
-  const { type = TYPE_VIETLOTT645 } = useParams();
-  const latestDrawingsData = useLatestData(type);
+  const {type = TYPE_VIETLOTT645} = useParams();
+  const latestDrawingsData = useLatestData(type, dispatch);
   const analytics = useAnalytics({
     drawings: latestDrawingsData,
     limit: recentDrawingsLimit,
-    type,
+    type
   });
   const originalAnalytics = useAnalytics({
     drawings: latestDrawingsData,
-    type,
+    type
   });
 
   useEffect(() => {
@@ -67,8 +67,8 @@ function App() {
     dispatch({
       type: SET_ANALYTICS,
       data: {
-        analytics: null,
-      },
+        analytics: null
+      }
     });
 
     dispatch({
@@ -78,8 +78,8 @@ function App() {
         drawings:
           Array.isArray(latestDrawingsData) && recentDrawingsLimit
             ? latestDrawingsData.slice(0, recentDrawingsLimit)
-            : latestDrawingsData,
-      },
+            : latestDrawingsData
+      }
     });
 
     if (latestDrawingsData && latestDrawingsData.length) {
@@ -87,8 +87,8 @@ function App() {
         type: SET_DRAWING_DATE,
         data: {
           drawingDate: latestDrawingsData[0].drawingDate,
-          drawingId: latestDrawingsData[0].drawingId,
-        },
+          drawingId: latestDrawingsData[0].drawingId
+        }
       });
     }
   }, [latestDrawingsData, recentDrawingsLimit]);
@@ -97,8 +97,8 @@ function App() {
     dispatch({
       type: SET_ANALYTICS,
       data: {
-        analytics,
-      },
+        analytics
+      }
     });
   }, [analytics]);
 
@@ -106,8 +106,8 @@ function App() {
     dispatch({
       type: SET_ORIGINAL_ANALYTICS,
       data: {
-        originalAnalytics,
-      },
+        originalAnalytics
+      }
     });
   }, [originalAnalytics]);
 
@@ -115,8 +115,9 @@ function App() {
     <AppContext.Provider
       value={{
         state,
-        dispatch,
-      }}>
+        dispatch
+      }}
+    >
       <div className="App">
         {!(drawings && stateAnalytics) && <Loading />}
         {drawings && stateAnalytics && (
