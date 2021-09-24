@@ -9,39 +9,85 @@ import lotteryTypeToQueryParam from '../lib/lotteryTypeToQueryParam';
 
 const cached = {};
 
+function visualize(numDrawingsSinceLast) {
+  const result = {};
+
+  Object.keys(numDrawingsSinceLast).forEach(number => {
+    result[number] = new Array(numDrawingsSinceLast[number] + 1)
+      .fill('_')
+      .join('');
+  });
+
+  return result;
+}
+
+function genStatsByBall(drawings) {
+  return drawings.slice(0, 50).reduceRight((acc, drawing) => {
+    const {numDrawingsSinceLast} = drawing;
+
+    Object.keys(numDrawingsSinceLast).forEach(ball => {
+      const countDrawingsBefore = numDrawingsSinceLast[ball];
+
+      acc[ball] = acc[ball] || '';
+      acc[ball] += countDrawingsBefore === 0 ? 'x' : ' ';
+    });
+
+    return acc;
+  }, {});
+}
+
+function genStatsByDate(drawings) {
+  return drawings.slice(0, 50).reduceRight((acc, drawing) => {
+    const {numDrawingsSinceLast} = drawing;
+
+    Object.keys(numDrawingsSinceLast).forEach(ball => {
+      const countDrawingsBefore = numDrawingsSinceLast[ball];
+
+      acc[ball] = acc[ball] || '';
+      acc[ball] += countDrawingsBefore === 0 ? 'x' : ' ';
+    });
+
+    return acc;
+  }, {});
+}
+
 export default function useLatestData(type = TYPE_VIETLOTT645, dispatch) {
   const [drawings, setDrawings] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      dispatch({type: GET_DATA});
+      const url = `${LATEST_DATA_URL}/${lotteryTypeToQueryParam(type)}`;
+      let drawings;
 
-      if (cached[type]) {
-        setDrawings(cached[type]);
+      if (cached[url]) {
+        drawings = cached[url];
       } else {
-        const API_DRAWINGS = `${LATEST_DATA_URL}/${lotteryTypeToQueryParam(
-          type
-        )}`;
-
-        const drawings = await fetch(API_DRAWINGS)
+        dispatch({type: GET_DATA});
+        drawings = await fetch(url)
           .then(res => res.json())
-          .then(drawings => {
-            drawings = drawings.map(drawing => {
-              return {
-                ...drawing,
-                drawingResult:
-                  type === TYPE_VIETLOTT655
-                    ? drawing.drawingResult.split(' ').slice(0, 6).join(' ') // Vietlott 655 (6 so'), remove so cuoi
-                    : drawing.drawingResult
-              };
-            });
-
-            return drawings;
+          .then(resDrawings => {
+            cached[url] = resDrawings;
+            return resDrawings;
           });
-
-        cached[type] = drawings;
-        setDrawings(drawings);
       }
+
+      drawings = drawings.map(drawing => {
+        const numDrawingsSinceLast = JSON.parse(drawing.numDrawingsSinceLast);
+        return {
+          ...drawing,
+          numDrawingsSinceLast,
+          visual: visualize(numDrawingsSinceLast),
+          drawingResult:
+            type === TYPE_VIETLOTT655
+              ? drawing.drawingResult.split(' ').slice(0, 6).join(' ') // Vietlott 655 (6 so'), remove so cuoi
+              : drawing.drawingResult
+        };
+      });
+      console.log(drawings);
+      const statsByBall = genStatsByBall(drawings);
+
+      console.log(statsByBall);
+      setDrawings(drawings);
     }
 
     fetchData();
