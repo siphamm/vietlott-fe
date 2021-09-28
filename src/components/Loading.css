@@ -1,5 +1,15 @@
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1.1);
+  }
+}
 
 .loading {
+  animation: 1s infinite alternate blink;
   text-align: center;
   margin: 15px auto;
   padding: 5px 15px;

@@ -20,7 +20,8 @@ function getNumDrawingsBetween(lotteryType, startDateStr, endDateStr) {
     dates.filter(date => {
       const drawingDayOfWeek = {
         vietlott645: new Set([0, 3, 5]),
-        vietlott655: new Set([2, 4, 6])
+        vietlott655: new Set([2, 4, 6]),
+        vietlott655_7: new Set([2, 4, 6])
       };
 
       return drawingDayOfWeek[lotteryType].has(dayjs(date).day());
@@ -50,7 +51,6 @@ export default function NumberSetDetails({history}) {
         {(() => {
           let lastResultMatchingDate;
           let now = new Date();
-          let lastResultMatchingId = parseInt(latestDrawing.drawingId, 10);
 
           return history.map((drawing, idx) => {
             const drawingDate = new Date(drawing.date);
@@ -67,20 +67,19 @@ export default function NumberSetDetails({history}) {
             );
 
             lastResultMatchingDate = drawingDate;
-            lastResultMatchingId = drawing.id;
 
             return (
               <div className="numberSetContainer" key={idx}>
                 <h4 className="numberSetTitle">
                   {timeElapsedSinceLastMatchingInDays && (
                     <span className="timeElapsedSinceLastMatchingInDays">
-                      {timeElapsedSinceLastMatchingInDays}d
+                      Cách {timeElapsedSinceLastMatchingInDays}d
                     </span>
                   )}
                   {/* <span>Cách đây {timeElapsedSinceNow} ngày</span> */}
                   {!!numDrawingsSinceLastMatching && (
                     <span className="drawingsElapsedSinceLastMatching">
-                      {numDrawingsSinceLastMatching} lần
+                      Cách {numDrawingsSinceLastMatching} lần
                     </span>
                   )}
                   <span className="numberSetDrawingDate">{drawing.date}</span>

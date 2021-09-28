@@ -19,13 +19,13 @@ export default function AppRouter() {
       <>
         <ul className="nav">
           <li>
-            <NavLink to={`/${TYPE_VIETLOTT645}`}>Vietlott 645</NavLink>
+            <NavLink to={`/${TYPE_VIETLOTT645}`}>645</NavLink>
           </li>
           <li>
-            <NavLink to={`/${TYPE_VIETLOTT655}`}>Vietlott 655 (6 số)</NavLink>
+            <NavLink to={`/${TYPE_VIETLOTT655}`}>655</NavLink>
           </li>
           <li>
-            <NavLink to={`/${TYPE_VIETLOTT655_7}`}>Vietlott 655 (7 số)</NavLink>
+            <NavLink to={`/${TYPE_VIETLOTT655_7}`}>655 (7 số)</NavLink>
           </li>
         </ul>
 
