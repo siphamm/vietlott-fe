@@ -19,9 +19,9 @@ export const GET_DATA = 'GET_DATA';
 
 // export const LATEST_DATA_URL =
 //   'https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/vietlott-api-dev-get-drawings';
+// Amazon results API latest working 'https://poco97bto9.execute-api.us-west-2.amazonaws.com/dev/results
 
-export const LATEST_DATA_URL =
-  'https://poco97bto9.execute-api.us-west-2.amazonaws.com/dev/results';
+export const LATEST_DATA_URL = 'https://vietlott-api.onrender.com/results';
 export const ALL_NUMBERS_655 = new Set([
   '01',
   '02',
