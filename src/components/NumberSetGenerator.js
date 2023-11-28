@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import shuffle from '../lib/shuffleArray';
 
 import './NumberSetGenerator.css';
@@ -47,55 +47,56 @@ export default function NumberSetGenerator() {
   }
 
   return (
-    <div className="numberSetGenerator">
+    <div className='numberSetGenerator'>
+      <h1>Chọn bộ số</h1>
       <div>
         <h4>Bộ số</h4>
         <input
-          className="seedInput"
+          className='seedInput'
           defaultValue={''}
           onChange={onSeedInputChange}
         />
         <h4>Quantity</h4>
         <input
-          type="number"
+          type='number'
           defaultValue={numberSetCount || ''}
-          placeholder="Quantity"
-          min="1"
-          onChange={evt => {
+          placeholder='Quantity'
+          min='1'
+          onChange={(evt) => {
             setNumberSetCount(parseInt((evt.target.value || '').trim(), 10));
           }}
         />
         <h4>X</h4>
         <input
-          type="number"
+          type='number'
           defaultValue={numberSetLength || ''}
-          placeholder="X"
-          min="1"
-          onChange={evt => {
+          placeholder='X'
+          min='1'
+          onChange={(evt) => {
             setNumberSetLength(parseInt((evt.target.value || '').trim(), 10));
           }}
         />
         <div>
           <input
-            type="checkbox"
-            id="isUniqueCb"
-            className="isUniqueCb"
+            type='checkbox'
+            id='isUniqueCb'
+            className='isUniqueCb'
             defaultChecked={isUnique}
             onChange={() => {
               setIsUnique(!isUnique);
             }}
           />{' '}
-          <label htmlFor="isUniqueCb">
+          <label htmlFor='isUniqueCb'>
             <strong>Unique</strong>
           </label>
         </div>
         <button onClick={onGenerateClick}>Generate</button>
       </div>
       {generatedSets.length > 0 && (
-        <div className="generatedNumberSets">
+        <div className='generatedNumberSets'>
           {generatedSets.map((set, idx) => {
             return (
-              <div className="generatedNumberSet" key={idx}>
+              <div className='generatedNumberSet' key={idx}>
                 <code>{set.join(' ')}</code>
               </div>
             );

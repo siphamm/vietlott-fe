@@ -60,7 +60,7 @@ function calculateCustomNumberSetStats({
 
 function NumberSetStats({ numbers, customNumberSetStats }) {
   return (
-    <table className="customNumberSetStatsMatrix">
+    <table className='customNumberSetStatsMatrix'>
       <thead>
         <tr>
           <th>N</th>
@@ -86,7 +86,8 @@ function NumberSetStats({ numbers, customNumberSetStats }) {
                       className={classnames({
                         odd: parseInt(num, 10) % 2 !== 0,
                         even: parseInt(num, 10) % 2 === 0,
-                      })}>
+                      })}
+                    >
                       {appearances[num] > 0 ? appearances[num] : ''}
                     </td>
                   );
@@ -112,21 +113,21 @@ function CustomNumberSetStatsByGroup({ numberSet, customNumberSetStats }) {
   return (
     <>
       {/* All numbers */}
-      <div className="customNumberSetStatsGroup scrollable">
+      <div className='customNumberSetStatsGroup scrollable'>
         <h4>Tất cả (nhỏ tới lớn)</h4>
         <NumberSetStats
           numbers={numbersSortedAsc}
           customNumberSetStats={customNumberSetStats}
         />
       </div>
-      <div className="customNumberSetStatsGroup scrollable">
+      <div className='customNumberSetStatsGroup scrollable'>
         <h4>Tất cả (chẵn trước lẻ sau)</h4>
         <NumberSetStats
           numbers={numbersOrganizedByOddEven}
           customNumberSetStats={customNumberSetStats}
         />
       </div>
-      <div className="customNumberSetStatsByGroupContainer scrollable">
+      <div className='customNumberSetStatsByGroupContainer scrollable'>
         {/* Organized by group */}
         {['0x', '1x', '2x', '3x', '4x', '5x'].map((numberGroup) => {
           const numbersInThisNumberGroup = [...numberSet].filter((num) => {
@@ -138,7 +139,7 @@ function CustomNumberSetStatsByGroup({ numberSet, customNumberSetStats }) {
             .concat(numbersInThisNumberGroup.filter((num) => num % 2 !== 0));
 
           return (
-            <div className="customNumberSetStatsGroup">
+            <div className='customNumberSetStatsGroup'>
               <h4>Nhóm {numberGroup}</h4>
               <NumberSetStats
                 numbers={numbers}
@@ -148,7 +149,7 @@ function CustomNumberSetStatsByGroup({ numberSet, customNumberSetStats }) {
           );
         })}
       </div>
-      <div className="customNumberSetStatsByGroupContainer vertical">
+      <div className='customNumberSetStatsByGroupContainer vertical'>
         {/* Organized by group */}
         {['0x', '1x', '2x', '3x', '4x', '5x'].map((numberGroup) => {
           const numbersInThisNumberGroup = [...numberSet].filter((num) => {
@@ -160,7 +161,7 @@ function CustomNumberSetStatsByGroup({ numberSet, customNumberSetStats }) {
             .concat(numbersInThisNumberGroup.filter((num) => num % 2 !== 0));
 
           return (
-            <div className="customNumberSetStatsGroup">
+            <div className='customNumberSetStatsGroup'>
               <h4>Nhóm {numberGroup}</h4>
               <NumberSetStats
                 numbers={numbers}
@@ -238,11 +239,12 @@ export default function CustomNumberSet() {
 
   return (
     <div>
+      <h1>Tần suất xuất hiện</h1>
       <div>
         <input
-          id="customNumberSet"
-          type="text"
-          placeholder="Bộ số bất kỳ"
+          id='customNumberSet'
+          type='text'
+          placeholder='Bộ số bất kỳ'
           defaultValue={[...numberSet].join(' ')}
           ref={numberSetInputRef}
         />
@@ -252,20 +254,21 @@ export default function CustomNumberSet() {
             const newNumberSet = inputValue.length ? inputValue.split(' ') : [];
 
             setNumberSet(new Set(newNumberSet));
-          }}>
+          }}
+        >
           Set
         </button>
         <br />
         <div>
           <input
-            id="onlyCountWinningsCb"
-            type="checkbox"
+            id='onlyCountWinningsCb'
+            type='checkbox'
             checked={onlyCountWinnings}
             onChange={() => {
               setOnlyCountWinnings(!onlyCountWinnings);
             }}
           />
-          <label for="onlyCountWinningsCb">Chỉ tính những lần trúng</label>
+          <label for='onlyCountWinningsCb'>Chỉ tính những lần trúng</label>
         </div>
       </div>
 
