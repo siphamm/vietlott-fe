@@ -1,5 +1,3 @@
-import markov from './markov';
-
 export default function stats(
   drawings = [],
   {
@@ -45,18 +43,17 @@ export default function stats(
 
   // Init the result object
   const endResult = {
-      metadata: {
-          type,
-          prefix,
-          numLookBackDrawings,
-          allPossibleNumbers,
-      },
-      dateOverall: {},
-      numberSetOverall: {},
-      numberGroupOverall: {},
-      numberOverall: {},
-      resultNumbersAppearanceCount: {},
-      markov: markov(_drawings),
+    metadata: {
+      type,
+      prefix,
+      numLookBackDrawings,
+      allPossibleNumbers
+    },
+    dateOverall: {},
+    numberSetOverall: {},
+    numberGroupOverall: {},
+    numberOverall: {},
+    resultNumbersAppearanceCount: {}
   };
 
   // Do the actual analysis/calculations //
@@ -126,7 +123,7 @@ export default function stats(
       const endDigitNumberGroup = `x${resultNumber[resultNumber.length - 1]}`;
 
       endResult.resultNumbersAppearanceCount[resultNumber] =
-          endResult.resultNumbersAppearanceCount[resultNumber] || 0;
+        endResult.resultNumbersAppearanceCount[resultNumber] || 0;
       endResult.resultNumbersAppearanceCount[resultNumber]++;
 
       // Number groups
@@ -181,7 +178,10 @@ export default function stats(
       numberSets: {
         numberSetsIncludeLatest,
         numberSetsExcludeLatest
-      }
+      },
+      resultNumbersAppearanceCount: JSON.parse(
+        JSON.stringify(endResult.resultNumbersAppearanceCount)
+      )
     };
   });
 
