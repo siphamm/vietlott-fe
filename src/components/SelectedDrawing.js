@@ -1,15 +1,15 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../data/app-context';
 
 import classNames from 'classnames';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCheckCircle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import './SelectedDrawing.css';
 
 export default function SelectedDrawing() {
-  const {state} = useContext(AppContext);
-  const {selectedDrawingDate, selectedDrawingId, analytics} = state;
+  const { state } = useContext(AppContext);
+  const { selectedDrawingDate, selectedDrawingId, analytics } = state;
   const [includeLatest, setIncludeLatest] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
@@ -17,7 +17,7 @@ export default function SelectedDrawing() {
 
   function onDeleteDrawing() {
     const {
-      metadata: {type: lotteryType}
+      metadata: { type: lotteryType },
     } = analytics;
     const url =
       'https://rgc9a9lhu5.execute-api.us-west-2.amazonaws.com/dev/drawings';
@@ -34,21 +34,21 @@ export default function SelectedDrawing() {
         method: 'DELETE',
         mode: 'cors',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({
           type,
-          drawingId: selectedDrawingId
-        })
+          drawingId: selectedDrawingId,
+        }),
       })
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(data => {
+        .then((data) => {
           setError(null);
           // window.location.reload();
         })
-        .catch(err => {
+        .catch((err) => {
           setError(err);
         })
         .finally(() => {
@@ -62,8 +62,8 @@ export default function SelectedDrawing() {
   }
 
   const {
-    numberSets: {numberSetsIncludeLatest, numberSetsExcludeLatest},
-    drawingResult: selectedDrawingResult
+    numberSets: { numberSetsIncludeLatest, numberSetsExcludeLatest },
+    drawingResult: selectedDrawingResult,
   } = selectedDrawing;
 
   const selectedDrawingNumSets =
@@ -72,13 +72,13 @@ export default function SelectedDrawing() {
       : numberSetsExcludeLatest;
 
   return (
-    <div className="selectedDrawing">
-      <h2 className="selectedDrawingResult--header">
+    <div className='selectedDrawing'>
+      <h2 className='selectedDrawingResult--header'>
         Kết quả ngày {selectedDrawingDate}
       </h2>
-      <div className="selectedDrawingResult">
+      <div className='selectedDrawingResult'>
         {selectedDrawingResult.map((num, idx) => {
-          return <span key={idx}>{num}</span>;
+          return <>{num} </>;
         })}
       </div>
       {/* <button onClick={onDeleteDrawing}>Xóa kết quả này</button> */}
@@ -87,23 +87,23 @@ export default function SelectedDrawing() {
         <div>
           <input
             checked={!!includeLatest}
-            type="checkbox"
-            id="includeLatestCb"
+            type='checkbox'
+            id='includeLatestCb'
             onChange={() => {
               setIncludeLatest(!includeLatest);
             }}
           />
-          <label htmlFor="includeLatestCb">Tính luôn kết quả mới nhất</label>
+          <label htmlFor='includeLatestCb'>Tính luôn kết quả mới nhất</label>
         </div>
       )}
 
       {selectedDrawingNumSets &&
         Object.keys(selectedDrawingNumSets).map((numSet, idx) => {
           const numSetData = selectedDrawingNumSets[numSet];
-          const {isWinningNumberSet, data, matches} = numSetData;
+          const { isWinningNumberSet, data, matches } = numSetData;
           return (
-            <div key={idx} className="numSetContainer">
-              <h4 className="numSetTitle">
+            <div key={idx} className='numSetContainer'>
+              <h4 className='numSetTitle'>
                 <span>{numSet}</span>
                 <span>{`${data.length} số`}</span>
                 {!isWinningNumberSet && !includeLatest && (
@@ -111,18 +111,18 @@ export default function SelectedDrawing() {
                 )}
                 {isWinningNumberSet && (
                   <span>
-                    <FontAwesomeIcon icon={faCheckCircle} color="#8a00f3" />
+                    <FontAwesomeIcon icon={faCheckCircle} color='#8a00f3' />
                   </span>
                 )}
               </h4>
-              <code className="numSetNums">
+              <code className='numSetNums'>
                 {data.map((num, idx) => {
                   return (
                     <span
                       key={idx}
                       className={classNames({
                         num: true,
-                        isWinningNum: matches.indexOf(num) !== -1
+                        isWinningNum: matches.indexOf(num) !== -1,
                       })}
                     >
                       {num}

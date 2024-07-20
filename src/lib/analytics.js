@@ -45,17 +45,18 @@ export default function stats(
 
   // Init the result object
   const endResult = {
-    metadata: {
-      type,
-      prefix,
-      numLookBackDrawings,
-      allPossibleNumbers
-    },
-    dateOverall: {},
-    numberSetOverall: {},
-    numberGroupOverall: {},
-    numberOverall: {},
-    markov: markov(_drawings)
+      metadata: {
+          type,
+          prefix,
+          numLookBackDrawings,
+          allPossibleNumbers,
+      },
+      dateOverall: {},
+      numberSetOverall: {},
+      numberGroupOverall: {},
+      numberOverall: {},
+      resultNumbersAppearanceCount: {},
+      markov: markov(_drawings),
   };
 
   // Do the actual analysis/calculations //
@@ -123,6 +124,10 @@ export default function stats(
       const numberGroup = `${resultNumber[0]}x`;
       const numberType = parseInt(resultNumber, 10) % 2 === 0 ? 'even' : 'odd';
       const endDigitNumberGroup = `x${resultNumber[resultNumber.length - 1]}`;
+
+      endResult.resultNumbersAppearanceCount[resultNumber] =
+          endResult.resultNumbersAppearanceCount[resultNumber] || 0;
+      endResult.resultNumbersAppearanceCount[resultNumber]++;
 
       // Number groups
       if (!numberGroupsOfCurDrawing.hasOwnProperty(numberGroup)) {

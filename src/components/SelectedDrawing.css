@@ -9,11 +9,11 @@
   font-weight: 600;
   font-size: 2em;
   margin-bottom: 25px;
+  color: #029400;
 }
 
 .selectedDrawingResult > span {
   margin-right: 15px;
-  color: #029400;
 }
 
 .numSetContainer {
