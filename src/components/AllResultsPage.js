@@ -17,10 +17,14 @@ export default function AllResultsPage() {
             {drawing.drawingDate} |{' '}
             {drawing.drawingResult.split(' ').map(resultNum => {
               const count =
-                analytics.resultNumbersAppearanceCount[resultNum] -
+                analytics.resultNumbersAppearanceCount[resultNum] +
+                1 -
+                (analytics.dateOverall[drawing.drawingDate] &&
                 analytics.dateOverall[drawing.drawingDate]
-                  .resultNumbersAppearanceCount[resultNum] +
-                1;
+                  .resultNumbersAppearanceCount[resultNum]
+                  ? analytics.dateOverall[drawing.drawingDate]
+                      .resultNumbersAppearanceCount[resultNum]
+                  : 0);
               return (
                 <>
                   <span className="resultNum">{resultNum}</span>
